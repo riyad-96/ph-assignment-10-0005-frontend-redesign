@@ -3,16 +3,23 @@
 @plugin 'daisyui';
 
 :root {
-  --main-bg: #fff;
-  --text-clr: #000;
+  --main-bg-clr: hsl(0, 0%, 97%);
+  --main-text-clr: #000;
+
+  --header-bg-clr: hsl(0, 0%, 90%);
+  --nav-link-hover-bg: hsl(197, 74%, 29%, 0.15);
+  --dropdown-bg-clr: hsl(0, 0%, 97%);
 }
 
 .dark {
-  --primary-bg-clr: #000;
-  --primary-text-clr: #fff;
+  --main-bg-clr: #000;
+  --main-text-clr: #fff;
 }
 
 /* Resets */
+* {
+  scrollbar-width: thin;
+}
 body {
   font-family:
     'Outfit',
@@ -33,6 +40,7 @@ img {
   -webkit-user-select: none;
   -moz-user-select: none;
 }
+
 @media (pointer: fine) {
   button {
     cursor: pointer;
