@@ -6,9 +6,9 @@
   --main-bg: hsl(0, 0%, 97%);
   --main-text-clr: #000;
 
-  --header-bg: hsl(0, 0%, 90%);
+  --header-bg: hsl(0, 0%, 100%);
   --nav-link-hover-bg: hsl(197, 74%, 29%, 0.15);
-  --dropdown-bg: hsl(0, 0%, 97%);
+  --dropdown-bg: hsl(0, 0%, 100%);
 }
 
 .dark {
@@ -51,4 +51,21 @@ img {
 .screen-height {
   height: 100vh;
   height: 100dvh;
+}
+.header.scroll-trigger {
+  box-shadow: 0 2px 5px -3px hsl(0, 0%, 0%, 0.2);
+  background-color: hsl(0, 0%, 100%, 0.8);
+}
+
+.profile-dropdown-shadow {
+  box-shadow:
+    0px 3px 5px -2px hsl(0, 0%, 0%, 0.15),
+    0px -2px 5px -2px hsl(0, 0%, 0%, 0.1);
+}
+@media (width < 768px) {
+  .menu-dropdown-shadow {
+    box-shadow:
+      0px 3px 5px -2px hsl(0, 0%, 0%, 0.15),
+      0px -2px 5px -2px hsl(0, 0%, 0%, 0.1);
+  }
 }

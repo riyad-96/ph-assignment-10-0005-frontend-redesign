@@ -56,7 +56,7 @@ function NavMenus() {
         </button>
 
         <nav
-          className={`menu-dropdown flex origin-top-left items-center gap-0.5 duration-150 max-md:absolute max-md:top-[calc(100%+5px)] max-md:grid max-md:w-[180px] max-md:rounded-lg max-md:bg-(--dropdown-bg) max-md:p-1.5 max-md:shadow-md max-md:transition-[opacity,scale] ${menuDropDownShowing ? 'max-md:scale-100 max-md:opacity-100' : 'max-md:scale-80 max-md:opacity-0'}`}
+          className={`menu-dropdown menu-dropdown-shadow flex origin-top-left items-center gap-0.5 duration-150 max-md:absolute max-md:top-[calc(100%+5px)] max-md:grid max-md:w-[180px] max-md:rounded-lg max-md:bg-(--dropdown-bg) max-md:p-1.5 max-md:transition-[opacity,scale] ${menuDropDownShowing ? 'max-md:scale-100 max-md:opacity-100' : 'max-md:scale-80 max-md:opacity-0'}`}
         >
           <NavLink
             onClick={() => setTimeout(() => setMenuDropDownShowing(false), 100)}
@@ -136,10 +136,10 @@ function NavMenus() {
                   transition={{
                     duration: 0.15,
                   }}
-                  className="profile-dropdown absolute top-[calc(100%+5px)] right-0 grid w-[110px] origin-top-right rounded-lg bg-(--dropdown-bg) p-1.5 shadow-md"
+                  className="profile-dropdown profile-dropdown-shadow absolute top-[calc(100%+5px)] right-0 grid w-[110px] origin-top-right rounded-lg bg-(--dropdown-bg) p-1.5"
                 >
                   <Link
-                    className="rounded-md py-1.5 text-start px-3 text-sm pointer-fine:hover:bg-(--nav-link-hover-bg)"
+                    className="rounded-md px-3 py-1.5 text-start text-sm pointer-fine:hover:bg-(--nav-link-hover-bg)"
                     to="/profile"
                     children="Profile"
                   />
@@ -148,7 +148,7 @@ function NavMenus() {
                       await signOut(auth);
                       toast.success('Log out successful');
                     }}
-                    className="rounded-md py-1.5 text-start px-3 text-sm pointer-fine:hover:bg-(--nav-link-hover-bg)"
+                    className="rounded-md px-3 py-1.5 text-start text-sm pointer-fine:hover:bg-(--nav-link-hover-bg)"
                   >
                     Logout
                   </button>

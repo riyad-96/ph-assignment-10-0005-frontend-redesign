@@ -99,6 +99,7 @@ function Login() {
     setInteractionDisabled(true);
     try {
       await signInWithPopup(auth, GoogleProvider);
+      toast.success('Welcome, Login was successful.', { duration: 3000 });
     } catch (err) {
       console.error(err);
     } finally {

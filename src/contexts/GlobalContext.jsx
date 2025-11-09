@@ -1,8 +1,10 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../configs/firebase';
+import useAxios from '../hooks/useAxios';
 
 const globalContext = createContext();
+const server = useAxios();
 
 function GlobalContext({ children }) {
   const [appLoading, setAppLoading] = useState(true);
@@ -20,6 +22,22 @@ function GlobalContext({ children }) {
 
   const [interactionDisabled, setInteractionDisabled] = useState(false);
 
+  // fetch base partners
+  const [allPartners, setAllPartners] = useState([]);
+  const [topRatedPartners, setTopRatedPartners] = useState([]);
+
+  useEffect(() => {
+    if (appLoading) return;
+    (async () => {
+      try {
+        const res = await server.get('base-partner/all');
+        setAllPartners(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [appLoading]);
+
   return (
     <globalContext.Provider
       value={{
@@ -29,6 +47,10 @@ function GlobalContext({ children }) {
         setUser,
         interactionDisabled,
         setInteractionDisabled,
+        allPartners,
+        setAllPartners,
+        topRatedPartners,
+        setTopRatedPartners,
       }}
     >
       {children}
