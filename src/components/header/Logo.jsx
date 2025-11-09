@@ -1,10 +1,12 @@
-function Logo({ onClick }) {
+function Logo({ onClick = () => {} }) {
   return (
-    <div className="relative flex items-center">
-      <div className="size-10">
+    <div className="relative flex items-center w-fit">
+      <div className="size-10 shrink-0">
         <img className="size-full" src="/study-logo.png" alt="" />
       </div>
-      <span className="font-medium md:text-lg max-sm:text-sm">Study Partner</span>
+      <span className="font-medium max-sm:text-sm md:text-lg">
+        Study Partner
+      </span>
       <button className="absolute inset-0 z-1" onClick={onClick}></button>
     </div>
   );

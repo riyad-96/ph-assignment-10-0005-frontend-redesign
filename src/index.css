@@ -3,16 +3,16 @@
 @plugin 'daisyui';
 
 :root {
-  --main-bg-clr: hsl(0, 0%, 97%);
+  --main-bg: hsl(0, 0%, 97%);
   --main-text-clr: #000;
 
-  --header-bg-clr: hsl(0, 0%, 90%);
+  --header-bg: hsl(0, 0%, 90%);
   --nav-link-hover-bg: hsl(197, 74%, 29%, 0.15);
-  --dropdown-bg-clr: hsl(0, 0%, 97%);
+  --dropdown-bg: hsl(0, 0%, 97%);
 }
 
 .dark {
-  --main-bg-clr: #000;
+  --main-bg: #000;
   --main-text-clr: #fff;
 }
 

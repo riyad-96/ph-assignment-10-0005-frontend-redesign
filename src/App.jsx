@@ -7,7 +7,7 @@ function App() {
   const { interactionDisabled } = useGlobalContext();
 
   return (
-    <div className="bg-(--main-bg-clr) text-(--main-text-clr)">
+    <div className="bg-(--main-bg) text-(--main-text-clr)">
       <AnimatePresence>
         {interactionDisabled && (
           <div className="fixed inset-0 z-50 cursor-not-allowed bg-white/20"></div>
