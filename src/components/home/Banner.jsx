@@ -61,6 +61,13 @@ function Banner() {
 
   return (
     <div>
+      <div className="space-y-2 px-4 pt-4 pb-12 text-center">
+        <h1 className="text-lg font-medium sm:text-xl md:text-2xl md:font-semibold xl:text-4xl">
+          Don’t Study Alone Anymore!
+        </h1>
+        <p className="opacity-80">Meet study buddies who make learning easier — and a lot more fun.</p>
+      </div>
+
       <Swiper
         pagination={{
           clickable: true,

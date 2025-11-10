@@ -7,8 +7,14 @@ function Footer() {
       <div className="mx-auto max-w-[1440px]">
         <div className="max-md:space-y-6 md:flex md:gap-4">
           <div className="flex-1">
-            <Logo />
-            <p className="max-w-md leading-5 font-light tracking-wide">
+            <Logo
+              onClick={() => {
+                document
+                  .querySelector('.scroll-top')
+                  .scrollIntoView({ block: 'start', behavior: 'smooth' });
+              }}
+            />
+            <p className="mt-2 max-w-md leading-5 font-light tracking-wide">
               A platform where learners can easily find, connect, and
               collaborate with study partners online. Build knowledge together,
               anytime, anywhere.

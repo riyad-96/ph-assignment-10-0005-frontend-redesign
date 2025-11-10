@@ -5,7 +5,7 @@ function EachTopStudyPartnerCard({ p }) {
 
   return (
     <div className="group relative rounded-lg p-4">
-      <span className="absolute inset-0 z-2 rounded-xl bg-white shadow scale-70 group-hover:scale-100 transition-[scale,opacity] duration-300 opacity-0 group-hover:opacity-100"></span>
+      <span className="absolute inset-0 z-2 scale-70 rounded-xl bg-white opacity-0 shadow transition-[scale,opacity] duration-300 group-hover:scale-100 group-hover:opacity-100"></span>
       <div className="relative z-3 space-y-2">
         <div className="relative aspect-video overflow-hidden rounded-lg">
           <img
@@ -35,7 +35,7 @@ function EachTopStudyPartnerCard({ p }) {
           </p>
         </div>
         <div>
-          <button className="w-full font-medium tracking-wide rounded-lg bg-(--nav-link-hover-bg) py-1.5 text-sm">
+          <button className="w-full rounded-lg bg-(--nav-link-hover-bg) py-1.5 text-sm font-medium tracking-wide">
             View Profile
           </button>
         </div>

@@ -18,7 +18,7 @@ function AppLayout() {
   }, []);
 
   return (
-    <div className="grid min-h-screen grid-rows-[1fr_auto]">
+    <div className="scroll-top grid min-h-screen grid-rows-[1fr_auto]">
       <Header />
       <div className="mt-[50px] py-8 md:mt-[65px]">
         <Outlet />
