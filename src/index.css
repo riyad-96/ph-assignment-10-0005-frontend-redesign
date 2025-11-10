@@ -10,6 +10,11 @@
   --header-bg: hsl(0, 0%, 100%);
   --nav-link-hover-bg: hsl(197, 74%, 29%, 0.15);
   --dropdown-bg: hsl(0, 0%, 100%);
+
+  --input-bg: hsl(0, 0%, 100%);
+  --input-focus-ring-clr: hsl(197, 74%, 50%);
+  --slick-border-clr: hsl(0, 0%, 90%);
+  --disabled-input-clr: hsl(0, 0%, 30%);
 }
 
 .dark {
