@@ -15,6 +15,8 @@
   --input-focus-ring-clr: hsl(197, 74%, 50%);
   --slick-border-clr: hsl(0, 0%, 90%);
   --disabled-input-clr: hsl(0, 0%, 30%);
+
+  --loader-bg: hsl(0, 0%, 50%, 0.25);
 }
 
 .dark {

@@ -9,7 +9,7 @@ import { toast } from 'kitzo/react';
 import ThemeToggler from './ThemeToggler';
 
 function NavMenus() {
-  const { user } = useGlobalContext();
+  const { user, partnerProfile } = useGlobalContext();
 
   const [dropDownShowing, setDropDownShowing] = useState(false);
   const [menuDropDownShowing, setMenuDropDownShowing] = useState(false);
@@ -81,7 +81,7 @@ function NavMenus() {
                   setTimeout(() => setMenuDropDownShowing(false), 100)
                 }
                 to="/create-partner-profile"
-                children="Create Partner Profile"
+                children={partnerProfile ? 'Partner profile' : 'Create partner profile'}
                 className={({ isActive }) =>
                   `rounded-md px-3 py-1 text-sm max-md:py-1.5 md:font-medium ${isActive ? 'bg-(--nav-link-hover-bg)' : 'pointer-fine:hover:bg-(--nav-link-hover-bg)'}`
                 }

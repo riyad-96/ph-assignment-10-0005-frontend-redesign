@@ -5,11 +5,6 @@ import EachTopStudyPartnerCard from './eachTopStudyPartnerCard';
 function TopStudyPartnersSection() {
   const { topStudyPartners, partnersLoading } = useGlobalContext();
 
-  useEffect(() => {
-    if (partnersLoading) return;
-    console.log(topStudyPartners);
-  }, [partnersLoading]);
-
   return (
     <div>
       <h2 className="mt-6 pl-1 text-lg font-medium md:text-2xl">
@@ -28,8 +23,10 @@ function TopStudyPartnersSection() {
         )}
       </div>
 
-      <div className="flex justify-center my-8">
-        <button className="bg-(--nav-link-hover-bg) text-sm px-3 py-1 rounded-md">View all partners</button>
+      <div className="my-8 flex justify-center">
+        <button className="rounded-md bg-(--nav-link-hover-bg) px-3 py-1 text-sm">
+          View all partners
+        </button>
       </div>
     </div>
   );

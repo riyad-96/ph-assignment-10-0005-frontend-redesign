@@ -1,9 +1,12 @@
+import FunctionContext from "./FunctionContext";
 import GlobalContext from "./GlobalContext"
 
 function ContextProvider({children}) {
   return (
     <GlobalContext>
-      {children}
+      <FunctionContext>
+        {children}
+      </FunctionContext>
     </GlobalContext>
   )
 }
