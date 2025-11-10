@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../components/header/Header';
 import Footer from '../components/Footer';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 function AppLayout() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     function scrollObserver() {
       requestAnimationFrame(() => {
         document
@@ -18,9 +18,9 @@ function AppLayout() {
   }, []);
 
   return (
-    <div className="screen-height grid grid-rows-[1fr_auto]">
+    <div className="grid min-h-screen grid-rows-[1fr_auto]">
       <Header />
-      <div className="mt-[50px] min-h-[95vh] pt-8 md:mt-[65px]">
+      <div className="mt-[50px] py-8 md:mt-[65px]">
         <Outlet />
       </div>
       <Footer />

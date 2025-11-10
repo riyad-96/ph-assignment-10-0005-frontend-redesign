@@ -15,6 +15,7 @@ import CreatePartnerProfile from './pages/CreatePartnerProfile.jsx';
 import MyConnections from './pages/MyConnections.jsx';
 import AuthProtected from './routes/AuthProtected.jsx';
 import PageProtected from './routes/PageProtected.jsx';
+import { StrictMode } from 'react';
 
 const router = createBrowserRouter([
   {

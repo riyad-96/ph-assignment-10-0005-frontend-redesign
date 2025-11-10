@@ -56,7 +56,7 @@ function NavMenus() {
         </button>
 
         <nav
-          className={`menu-dropdown menu-dropdown-shadow flex origin-top-left items-center gap-0.5 duration-150 max-md:absolute max-md:top-[calc(100%+5px)] max-md:grid max-md:w-[180px] max-md:rounded-lg max-md:bg-(--dropdown-bg) max-md:p-1.5 max-md:transition-[opacity,scale] ${menuDropDownShowing ? 'max-md:scale-100 max-md:opacity-100' : 'max-md:scale-80 max-md:opacity-0'}`}
+          className={`menu-dropdown menu-dropdown-shadow flex origin-top-left items-center gap-0.5 duration-150 max-md:absolute max-md:top-[calc(100%+5px)] max-md:grid max-md:w-[180px] max-md:rounded-lg max-md:bg-(--dropdown-bg) max-md:p-1.5 max-md:transition-[opacity,scale] ${menuDropDownShowing ? 'max-md:scale-100 max-md:opacity-100 max-md:pointer-events-auto' : 'max-md:scale-80 max-md:opacity-0 max-md:pointer-events-none'}`}
         >
           <NavLink
             onClick={() => setTimeout(() => setMenuDropDownShowing(false), 100)}
