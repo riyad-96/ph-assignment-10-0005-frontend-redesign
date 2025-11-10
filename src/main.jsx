@@ -37,11 +37,11 @@ const router = createBrowserRouter([
             element: <Home />,
           },
           {
-            path: 'find-partners',
+            path: 'partners',
             element: <FindPartners />,
           },
           {
-            path: 'create-partner-profile',
+            path: 'partner-profile',
             element: (
               <PageProtected>
                 <CreatePartnerProfile />

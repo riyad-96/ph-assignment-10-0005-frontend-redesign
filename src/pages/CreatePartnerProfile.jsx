@@ -24,7 +24,7 @@ function CreatePartnerProfile() {
 
   const [formError, setFormError] = useState({
     name: '',
-    profileimage: '',
+    profileImage: '',
     subject: '',
     location: '',
   });
@@ -35,7 +35,7 @@ function CreatePartnerProfile() {
       setFormError((prev) => ({ ...prev, name: 'Name is required' }));
       accepted = false;
     }
-    if (!data.profileimage?.trim()) {
+    if (!data.profileImage?.trim()) {
       setFormError((prev) => ({
         ...prev,
         profileimage: 'Profile image is required',
@@ -63,7 +63,7 @@ function CreatePartnerProfile() {
     setSubmittingForm(true);
     try {
       const res = await server.post('partner-profile/create', createInfo);
-      await updateFirebaseInfo(createInfo.name, createInfo.profileimage);
+      await updateFirebaseInfo(createInfo.name, createInfo.profileImage);
       return res.data;
     } catch (err) {
       throw err;
@@ -75,7 +75,7 @@ function CreatePartnerProfile() {
     setSubmittingForm(true);
     try {
       const res = await server.post('partner-profile/update', updateInfo);
-      await updateFirebaseInfo(updateInfo.name, updateInfo.profileimage);
+      await updateFirebaseInfo(updateInfo.name, updateInfo.profileImage);
       return res.data;
     } catch (err) {
       throw err;
@@ -88,14 +88,14 @@ function CreatePartnerProfile() {
     const createInfo = {
       name: form.name.value,
       email: user.email,
-      profileimage: form.profileimage.value,
+      profileImage: form.profileImage.value,
       subject: form.subject.value,
-      studymode: form.studymode.value,
-      availabilitytime: form.availabilitytime.value,
+      studyMode: form.studyMode.value,
+      availabilityTime: form.availabilityTime.value,
       location: form.location.value,
-      experience: form.experience.value,
+      experienceLevel: form.experienceLevel.value,
       rating: 0,
-      partner: 0,
+      partnerCount: 0,
     };
 
     if (!ableToSubmit(createInfo)) return;
@@ -103,12 +103,12 @@ function CreatePartnerProfile() {
     if (partnerProfile) {
       const updateInfo = {
         name: form.name.value,
-        profileimage: form.profileimage.value,
+        profileImage: form.profileImage.value,
         subject: form.subject.value,
-        studymode: form.studymode.value,
-        availabilitytime: form.availabilitytime.value,
+        studyMode: form.studyMode.value,
+        availabilityTime: form.availabilityTime.value,
         location: form.location.value,
-        experience: form.experience.value,
+        experienceLevel: form.experienceLevel.value,
       };
 
       toast.promise(update(updateInfo), {
@@ -205,20 +205,20 @@ function CreatePartnerProfile() {
                   </div>
 
                   <div className="grid">
-                    <label className="mb-1 w-fit pl-1" htmlFor="profileimage">
+                    <label className="mb-1 w-fit pl-1" htmlFor="profileImage">
                       Profile image link:
                     </label>
                     <input
                       className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
-                      id="profileimage"
+                      id="profileImage"
                       type="text"
-                      name="profileimage"
+                      name="profileImage"
                       placeholder="Enter profile image url"
                       defaultValue={
-                        partnerProfile?.profileimage || user.photoURL
+                        partnerProfile?.profileImage || user.photoURL || ''
                       }
                       onChange={() => {
-                        if (formError.profileimage.trim()) {
+                        if (formError.profileImage.trim()) {
                           setFormError((prev) => ({
                             ...prev,
                             profileimage: '',
@@ -227,9 +227,9 @@ function CreatePartnerProfile() {
                       }}
                     />
                     <span
-                      className={`overflow-hidden pl-1.5 text-sm text-red-400 transition-[height,margin] duration-150 ${formError.profileimage ? 'mt-0.5 h-5' : 'mt-0 h-0'}`}
+                      className={`overflow-hidden pl-1.5 text-sm text-red-400 transition-[height,margin] duration-150 ${formError.profileImage ? 'mt-0.5 h-5' : 'mt-0 h-0'}`}
                     >
-                      {formError.profileimage}
+                      {formError.profileImage}
                     </span>
                   </div>
 
@@ -258,13 +258,13 @@ function CreatePartnerProfile() {
                   </div>
 
                   <div className="grid">
-                    <label className="mb-1 w-fit pl-1" htmlFor="studymode">
+                    <label className="mb-1 w-fit pl-1" htmlFor="studyMode">
                       Study mode:
                     </label>
                     <select
-                      id="studymode"
-                      name="studymode"
-                      defaultValue={partnerProfile?.studymode || 'Online'}
+                      id="studyMode"
+                      name="studyMode"
+                      defaultValue={partnerProfile?.studyMode || 'Online'}
                       className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                     >
                       <option defaultValue="Online">Online</option>
@@ -277,16 +277,16 @@ function CreatePartnerProfile() {
                   <div className="grid">
                     <label
                       className="mb-1 w-fit pl-1"
-                      htmlFor="availabilitytime"
+                      htmlFor="availabilityTime"
                     >
                       Availability time:
                     </label>
                     <select
                       className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
-                      id="availabilitytime"
-                      name="availabilitytime"
+                      id="availabilityTime"
+                      name="availabilityTime"
                       defaultValue={
-                        partnerProfile?.availabilitytime ||
+                        partnerProfile?.availabilityTime ||
                         'Early Morning (5-8 AM)'
                       }
                     >
@@ -323,14 +323,14 @@ function CreatePartnerProfile() {
                   </div>
 
                   <div className="grid">
-                    <label className="mb-1 w-fit pl-1" htmlFor="experience">
+                    <label className="mb-1 w-fit pl-1" htmlFor="experienceLevel">
                       Experience level:
                     </label>
                     <select
-                      id="experience"
-                      name="experience"
+                      id="experienceLevel"
+                      name="experienceLevel"
                       className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
-                      defaultValue={partnerProfile?.experience || 'Beginner'}
+                      defaultValue={partnerProfile?.experienceLevel || 'Beginner'}
                     >
                       <option defaultValue="Beginner">Beginner</option>
                       <option defaultValue="Intermediate">Intermediate</option>
@@ -353,14 +353,14 @@ function CreatePartnerProfile() {
                   </div>
 
                   <div className="grid">
-                    <label className="mb-1 w-fit pl-1" htmlFor="partnercount">
+                    <label className="mb-1 w-fit pl-1" htmlFor="partnerCount">
                       Partner Count:
                     </label>
                     <input
                       className="h-[34px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
-                      id="partnercount"
+                      id="partnerCount"
                       type="text"
-                      name="partnercount"
+                      name="partnerCount"
                       defaultValue={partnerProfile?.partner || 0}
                       readOnly
                     />
@@ -369,7 +369,7 @@ function CreatePartnerProfile() {
               </div>
 
               <button
-                className="mt-6 grid h-8 w-[140px] place-items-center rounded-md bg-(--nav-link-hover-bg) px-4 py-1.5 text-sm"
+                className="mt-6 grid h-8 w-[140px] place-items-center rounded-md bg-(--accent-color) px-4 py-1.5 text-sm"
                 type="submit"
               >
                 {submittingForm ? (

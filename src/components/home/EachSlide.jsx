@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function EachSlide({ s }) {
   const { thumbnail, tag_line, description, cta_text } = s;
@@ -10,6 +10,7 @@ function EachSlide({ s }) {
         <div className="relative overflow-hidden rounded-lg shadow">
           <div className="absolute inset-0 z-1">
             <img
+              draggable="false"
               className="size-full object-cover object-center"
               src={thumbnail}
               alt={tag_line}
@@ -22,9 +23,10 @@ function EachSlide({ s }) {
               <h4 className="text-center text-lg font-medium tracking-wide text-white max-sm:text-sm md:text-2xl lg:text-4xl">
                 {tag_line}
               </h4>
-              <button 
-              onClick={() => navigate('/find-partners')}
-               className="rounded-md bg-white/70 px-2 py-1 text-sm hover:bg-white/90 max-sm:text-xs">
+              <button
+                onClick={() => navigate('/find-partners')}
+                className="rounded-md bg-white/70 px-2 py-1 text-sm hover:bg-white/90 max-sm:text-xs"
+              >
                 {cta_text}
               </button>
             </div>

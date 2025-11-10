@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../../contexts/GlobalContext';
-import EachTopStudyPartnerCard from './eachTopStudyPartnerCard';
+import EachStudyPartnerCard from './EachStudyPartnerCard';
+import StudyParternerCardLoader from '../loaders/StudyParternerCardLoader';
 
 function TopStudyPartnersSection() {
   const { topStudyPartners, partnersLoading } = useGlobalContext();
@@ -13,20 +14,27 @@ function TopStudyPartnersSection() {
 
       <div className="my-4 grid grid-cols-2 md:grid-cols-3">
         {partnersLoading ? (
-          <div>Loading...</div>
+          <>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <StudyParternerCardLoader key={`cardLoader${i}`} />
+            ))}
+          </>
         ) : (
           <>
             {topStudyPartners.map((p) => (
-              <EachTopStudyPartnerCard key={p._id} p={p} />
+              <EachStudyPartnerCard key={p._id} p={p} />
             ))}
           </>
         )}
       </div>
 
       <div className="my-8 flex justify-center">
-        <button className="rounded-md bg-(--nav-link-hover-bg) px-3 py-1 text-sm">
+        <Link
+          to="/partners"
+          className="rounded-md bg-(--accent-color) px-3 py-1 text-sm"
+        >
           View all partners
-        </button>
+        </Link>
       </div>
     </div>
   );

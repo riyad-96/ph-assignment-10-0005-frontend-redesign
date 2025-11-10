@@ -8,7 +8,7 @@
   --main-text-clr: #000;
 
   --header-bg: hsl(0, 0%, 100%);
-  --nav-link-hover-bg: hsl(197, 74%, 29%, 0.15);
+  --accent-color: hsl(197, 74%, 29%, 0.15);
   --dropdown-bg: hsl(0, 0%, 100%);
 
   --input-bg: hsl(0, 0%, 100%);
@@ -16,7 +16,7 @@
   --slick-border-clr: hsl(0, 0%, 90%);
   --disabled-input-clr: hsl(0, 0%, 30%);
 
-  --loader-bg: hsl(0, 0%, 50%, 0.25);
+  --loader-bg: hsl(0, 0%, 50%, 0.15);
 }
 
 .dark {
@@ -43,6 +43,7 @@ body {
     'Helvetica Neue',
     sans-serif;
 }
+button,
 img {
   user-select: none;
   -webkit-user-select: none;
@@ -63,6 +64,12 @@ img {
 .header.scroll-trigger {
   box-shadow: 0 2px 5px -3px hsl(0, 0%, 0%, 0.2);
   background-color: hsl(0, 0%, 100%, 0.8);
+}
+
+.dropdown-shadow {
+  box-shadow:
+    0px 3px 5px -2px hsl(0, 0%, 0%, 0.15),
+    0px -2px 5px -2px hsl(0, 0%, 0%, 0.1);
 }
 
 .profile-dropdown-shadow {

@@ -4,7 +4,7 @@ import { useGlobalContext } from '../../contexts/GlobalContext';
 const reviews = [
   'Found an amazing study buddy within minutes! Makes learning so much more fun.',
   'The partner matching is spot on — finally someone who studies the same subjects as me.',
-  '“I actually stay consistent now because my study partner keeps me accountable. Love it!',
+  'I actually stay consistent now because my study partner keeps me accountable. Love it!',
   'Clean interface, easy to use, and super helpful during exam season.',
 ];
 
@@ -65,14 +65,15 @@ function TwoExtraSection() {
               <div className="flex items-center gap-2">
                 <div className="size-8 overflow-hidden rounded-full md:size-10">
                   <img
+                    draggable="false"
                     className="size-full object-cover object-center"
-                    src={p.profileimage}
+                    src={p.profileImage}
                     alt={p.name}
                   />
                 </div>
                 <h5 className="font-medium">{p.name}</h5>
               </div>
-              <p className="opacity-80 leading-5 tracking-wide max-sm:text-sm">
+              <p className="leading-5 tracking-wide opacity-80 max-sm:text-sm">
                 "{reviews[i]}"
               </p>
             </div>
