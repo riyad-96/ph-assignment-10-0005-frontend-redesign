@@ -171,7 +171,7 @@ function CreatePartnerProfile() {
                       Your name:
                     </label>
                     <input
-                      className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                       id="name"
                       type="text"
                       name="name"
@@ -195,7 +195,7 @@ function CreatePartnerProfile() {
                       Default email:
                     </label>
                     <input
-                      className="h-[34px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                       id="email"
                       type="email"
                       name="email"
@@ -209,7 +209,7 @@ function CreatePartnerProfile() {
                       Profile image link:
                     </label>
                     <input
-                      className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                       id="profileImage"
                       type="text"
                       name="profileImage"
@@ -238,7 +238,7 @@ function CreatePartnerProfile() {
                       Subject:
                     </label>
                     <input
-                      className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                       id="subject"
                       type="text"
                       name="subject"
@@ -265,7 +265,7 @@ function CreatePartnerProfile() {
                       id="studyMode"
                       name="studyMode"
                       defaultValue={partnerProfile?.studyMode || 'Online'}
-                      className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                     >
                       <option defaultValue="Online">Online</option>
                       <option defaultValue="Offline">Offline</option>
@@ -282,7 +282,7 @@ function CreatePartnerProfile() {
                       Availability time:
                     </label>
                     <select
-                      className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                       id="availabilityTime"
                       name="availabilityTime"
                       defaultValue={
@@ -303,7 +303,7 @@ function CreatePartnerProfile() {
                       Location
                     </label>
                     <input
-                      className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                       id="location"
                       type="text"
                       name="location"
@@ -329,7 +329,7 @@ function CreatePartnerProfile() {
                     <select
                       id="experienceLevel"
                       name="experienceLevel"
-                      className="h-[34px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                       defaultValue={partnerProfile?.experienceLevel || 'Beginner'}
                     >
                       <option defaultValue="Beginner">Beginner</option>
@@ -343,7 +343,7 @@ function CreatePartnerProfile() {
                       Profile Rating:
                     </label>
                     <input
-                      className="h-[34px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                       id="rating"
                       type="text"
                       name="rating"
@@ -357,7 +357,7 @@ function CreatePartnerProfile() {
                       Partner Count:
                     </label>
                     <input
-                      className="h-[34px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
                       id="partnerCount"
                       type="text"
                       name="partnerCount"

@@ -1,4 +1,5 @@
 import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 function EachStudyPartnerCard({ p, studymode = false }) {
   const {
@@ -49,9 +50,12 @@ function EachStudyPartnerCard({ p, studymode = false }) {
           </p>
         </div>
         <div>
-          <button className="w-full rounded-lg bg-(--accent-color) py-1.5 text-sm font-medium tracking-wide">
+          <Link
+            to={`/partner/${_id}`}
+            className="block w-full rounded-lg bg-(--accent-color) py-2 text-center text-sm font-medium tracking-wide"
+          >
             View Profile
-          </button>
+          </Link>
         </div>
       </div>
     </div>

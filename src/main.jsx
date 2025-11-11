@@ -16,6 +16,8 @@ import MyConnections from './pages/MyConnections.jsx';
 import AuthProtected from './routes/AuthProtected.jsx';
 import PageProtected from './routes/PageProtected.jsx';
 import { StrictMode } from 'react';
+import PartnerDetails from './pages/PartnerDetails.jsx';
+import PageNotFound from './pages/PageNotFound.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,7 @@ const router = createBrowserRouter([
         </AppLoadingProtected>
       </ContextProvider>
     ),
+    errorElement: <PageNotFound />,
     children: [
       {
         path: '',
@@ -39,6 +42,14 @@ const router = createBrowserRouter([
           {
             path: 'partners',
             element: <FindPartners />,
+          },
+          {
+            path: 'partner/:id',
+            element: (
+              <PageProtected>
+                <PartnerDetails />
+              </PageProtected>
+            ),
           },
           {
             path: 'partner-profile',

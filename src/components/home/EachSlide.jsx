@@ -24,7 +24,7 @@ function EachSlide({ s }) {
                 {tag_line}
               </h4>
               <button
-                onClick={() => navigate('/find-partners')}
+                onClick={() => navigate('/partners')}
                 className="rounded-md bg-white/70 px-2 py-1 text-sm hover:bg-white/90 max-sm:text-xs"
               >
                 {cta_text}

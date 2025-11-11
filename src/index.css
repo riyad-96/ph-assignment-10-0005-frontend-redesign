@@ -4,6 +4,7 @@
 @plugin 'daisyui';
 
 :root {
+  --white: #fff;;
   --main-bg: hsl(0, 0%, 97%);
   --main-text-clr: #000;
 
@@ -44,6 +45,7 @@ body {
     sans-serif;
 }
 button,
+a,
 img {
   user-select: none;
   -webkit-user-select: none;

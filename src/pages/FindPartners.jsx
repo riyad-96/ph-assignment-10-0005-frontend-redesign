@@ -3,7 +3,7 @@ import useAxios from '../hooks/useAxios';
 import { toast } from 'kitzo/react';
 import EachStudyPartnerCard from '../components/home/EachStudyPartnerCard';
 import StudyParternerCardLoader from '../components/loaders/StudyParternerCardLoader';
-import { ArrowUpDown, Search } from 'lucide-react';
+import { ArrowUpDown, Search, SearchX } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
 const sorts = [
@@ -26,6 +26,39 @@ const sorts = [
   {
     sort: 'reset',
     text: 'Show all',
+  },
+];
+
+const lines = [
+  {
+    heading: 'Find Your Perfect Study Match!',
+    description: 'Connect with learners who share your goals and grow together',
+  },
+  {
+    heading: 'Study Smarter, Not Harder — Together',
+    description:
+      'Team up with students who motivate, challenge, and inspire you',
+  },
+  {
+    heading: 'Learning Feels Easier When You’re Not Alone',
+    description:
+      'Discover study partners who fit your rhythm and help you stay consistent',
+  },
+  {
+    heading: 'Turn Boring Study Sessions into Power Hours',
+    description: 'Match with focused partners and make every minute count',
+  },
+  {
+    heading: 'Find a Study Partner Who Gets You',
+    description: 'Chat, plan, and learn side by side — from anywhere',
+  },
+  {
+    heading: 'Build Discipline Through Friendship',
+    description: 'Stay accountable and crush your goals with people who care',
+  },
+  {
+    heading: 'Your Study Journey Deserves Good Company',
+    description: 'Join motivated learners who lift each other up every day',
   },
 ];
 
@@ -128,9 +161,18 @@ function FindPartners() {
     };
   }, []);
 
+  const tag_lines = useRef(lines[Math.floor(Math.random() * lines.length)]);
+
   return (
     <div className="px-2 md:px-3">
       <div className="mx-auto max-w-[1440px]">
+        <div className="space-y-2 px-4 pt-4 pb-12 text-center">
+          <h1 className="text-lg font-medium sm:text-xl md:text-2xl md:font-semibold xl:text-4xl">
+            {tag_lines.current.heading}
+          </h1>
+          <p className="opacity-80">{tag_lines.current.description}</p>
+        </div>
+
         <div className="flex items-center justify-between">
           <div className="relative my-4">
             <button
@@ -187,14 +229,25 @@ function FindPartners() {
           </div>
 
           <div className="flex h-8 rounded-md border border-(--slick-border-clr) transition-colors duration-150 focus-within:border-zinc-500/40">
-            <span className="grid place-items-center rounded-l-md bg-(--accent-color)/30 px-3">
-              <Search size="16" className="opacity-70" />
-            </span>
+            <div className="relative grid place-items-center rounded-l-md bg-(--accent-color)/30 px-3">
+              {search ? (
+                <>
+                  <SearchX size="16" className="opacity-70" />
+                  <button
+                    onClick={() => setSearch('')}
+                    className="absolute inset-0 z-2"
+                  ></button>
+                </>
+              ) : (
+                <Search size="16" className="opacity-70" />
+              )}
+            </div>
             <input
               onChange={(e) => {
                 searchPartnersProfiles(e.target.value);
                 setSearch(e.target.value);
               }}
+              value={search}
               className="w-[230px] min-w-0 rounded-r-md bg-white px-3 text-sm transition-[width] duration-150 outline-none max-sm:w-[170px]"
               type="text"
               placeholder="Search here"
