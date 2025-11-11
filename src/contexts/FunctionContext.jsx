@@ -19,7 +19,8 @@ function FunctionContext({ children }) {
     setTopStudyPartners,
     setPartnersLoading,
     setPartnerProfile,
-    setPartnerProfileLoading,
+    isDark,
+    setIsDark,
   } = useGlobalContext();
 
   // user auth state change listener
@@ -49,7 +50,9 @@ function FunctionContext({ children }) {
           res.data.sort((a, b) => b.rating - a.rating).slice(0, 6),
         );
       } catch (err) {
-        toast.error('Error fetching partner data');
+        toast.error('Error fetching partner data', {
+          style: { color: 'black' },
+        });
         console.error(err);
       } finally {
         setPartnersLoading(false);
@@ -66,18 +69,18 @@ function FunctionContext({ children }) {
         setPartnerProfile(res.data);
       } catch (err) {
         setPartnerProfile(null);
-      } finally {
-        setPartnerProfileLoading(false);
       }
     })();
   }, [user]);
 
-  function toggleTheme() {}
+  // saved theme info
+  useEffect(() => {
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark', isDark);
+  }, [isDark]);
 
   return (
-    <functionContext.Provider value={{ toggleTheme }}>
-      {children}
-    </functionContext.Provider>
+    <functionContext.Provider value={{}}>{children}</functionContext.Provider>
   );
 }
 

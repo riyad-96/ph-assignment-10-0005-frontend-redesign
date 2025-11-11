@@ -4,10 +4,12 @@ import { ToastContainer } from 'kitzo/react';
 import { AnimatePresence } from 'motion/react';
 
 function App() {
-  const { interactionDisabled } = useGlobalContext();
+  const { isDark, interactionDisabled } = useGlobalContext();
 
   return (
-    <div className="bg-(--main-bg) text-(--main-text-clr)">
+    <div
+      className={`bg-(--main-bg) text-(--main-text-clr) transition-colors duration-150`}
+    >
       <AnimatePresence>
         {interactionDisabled && (
           <div className="fixed inset-0 z-50 cursor-not-allowed bg-white/20"></div>

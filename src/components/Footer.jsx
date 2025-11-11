@@ -3,7 +3,7 @@ import { FacebookIcon, InstagramIcon, LinkedInIcon, XIcon } from './Svgs';
 
 function Footer() {
   return (
-    <footer className="bg-(--header-bg) px-2 py-8 md:px-3">
+    <footer className="transition-colors duration-150 bg-(--header-bg) px-2 py-8 md:px-3">
       <div className="mx-auto max-w-[1440px]">
         <div className="max-md:space-y-6 md:flex md:gap-4">
           <div className="flex-1">
@@ -16,7 +16,7 @@ function Footer() {
             />
             <p className="mt-2 max-w-md leading-5 font-light tracking-wide">
               A platform where learners can easily find, connect, and
-              collaborate with study partners online. Build knowledge together,
+              collaborate with StudyMates online. Build knowledge together,
               anytime, anywhere.
             </p>
           </div>

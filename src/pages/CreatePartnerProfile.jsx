@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import PartnerProfileLoader from '../components/loaders/PartnerProfileLoader';
 import { toast } from 'kitzo/react';
@@ -19,8 +19,7 @@ const availabilityTimes = [
 
 function CreatePartnerProfile() {
   const server = useAxios();
-  const { user, partnerProfile, setPartnerProfile, partnerProfileLoading } =
-    useGlobalContext();
+  const { user, partnerProfile, setPartnerProfile } = useGlobalContext();
 
   const [formError, setFormError] = useState({
     name: '',
@@ -28,6 +27,21 @@ function CreatePartnerProfile() {
     subject: '',
     location: '',
   });
+
+  // fetch partner profile data
+  const [partnerProfileLoading, setPartnerProfileLoading] = useState(true);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await server.get('partner-profile/get');
+        setPartnerProfile(res.data);
+      } catch (err) {
+        setPartnerProfile(null);
+      } finally {
+        setPartnerProfileLoading(false);
+      }
+    })();
+  }, []);
 
   function ableToSubmit(data) {
     let accepted = true;
@@ -38,7 +52,7 @@ function CreatePartnerProfile() {
     if (!data.profileImage?.trim()) {
       setFormError((prev) => ({
         ...prev,
-        profileimage: 'Profile image is required',
+        profileImage: 'Profile image is required',
       }));
       accepted = false;
     }
@@ -111,30 +125,38 @@ function CreatePartnerProfile() {
         experienceLevel: form.experienceLevel.value,
       };
 
-      toast.promise(update(updateInfo), {
-        loading: 'Updating partner profile',
-        success: (newProfileData) => {
-          setPartnerProfile(newProfileData);
-          return 'Profile update successful';
+      toast.promise(
+        update(updateInfo),
+        {
+          loading: 'Updating partner profile',
+          success: (newProfileData) => {
+            setPartnerProfile(newProfileData);
+            return 'Profile update successful';
+          },
+          error: (err) => {
+            console.error(err);
+            return 'Error while updating profile';
+          },
         },
-        error: (err) => {
-          console.error(err);
-          return 'Error while updating profile';
-        },
-      }, {duration: 2300});
+        { duration: 2300, style: { color: 'black' } },
+      );
     } else {
-      toast.promise(create(createInfo), {
-        loading: 'Creating partner profile',
-        success: (profileData) => {
-          console.log(profileData);
-          setPartnerProfile(profileData);
-          return 'Profile successfully created';
+      toast.promise(
+        create(createInfo),
+        {
+          loading: 'Creating partner profile',
+          success: (profileData) => {
+            console.log(profileData);
+            setPartnerProfile(profileData);
+            return 'Profile successfully created';
+          },
+          error: (err) => {
+            console.error(err);
+            return 'Error while creating profile';
+          },
         },
-        error: (err) => {
-          console.error(err);
-          return 'Error while creating profile';
-        },
-      }, {duration: 2300});
+        { duration: 2300, style: { color: 'black' } },
+      );
     }
   }
 
@@ -323,14 +345,19 @@ function CreatePartnerProfile() {
                   </div>
 
                   <div className="grid">
-                    <label className="mb-1 w-fit pl-1" htmlFor="experienceLevel">
+                    <label
+                      className="mb-1 w-fit pl-1"
+                      htmlFor="experienceLevel"
+                    >
                       Experience level:
                     </label>
                     <select
                       id="experienceLevel"
                       name="experienceLevel"
                       className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
-                      defaultValue={partnerProfile?.experienceLevel || 'Beginner'}
+                      defaultValue={
+                        partnerProfile?.experienceLevel || 'Beginner'
+                      }
                     >
                       <option defaultValue="Beginner">Beginner</option>
                       <option defaultValue="Intermediate">Intermediate</option>
@@ -361,7 +388,7 @@ function CreatePartnerProfile() {
                       id="partnerCount"
                       type="text"
                       name="partnerCount"
-                      defaultValue={partnerProfile?.partner || 0}
+                      defaultValue={partnerProfile?.partnerCount || 0}
                       readOnly
                     />
                   </div>

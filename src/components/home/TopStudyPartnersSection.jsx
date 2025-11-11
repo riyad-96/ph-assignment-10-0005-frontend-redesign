@@ -9,7 +9,7 @@ function TopStudyPartnersSection() {
   return (
     <div>
       <h2 className="mt-6 pl-1 text-lg font-medium md:text-2xl">
-        Top study partners
+        Top StudyMates
       </h2>
 
       <div className="my-4 grid grid-cols-2 md:grid-cols-3">

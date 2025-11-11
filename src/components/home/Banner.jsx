@@ -38,7 +38,7 @@ const carouselData = [
       'https://img.freepik.com/free-photo/friends-walking-together-medium-shot_23-2149183684.jpg?t=st=1762725244~exp=1762728844~hmac=fdb77dcaa94c76896d50e1f4b896504539a425f42d784a55964b92118ba69227&w=1920',
     tag_line: 'Connect Beyond Borders',
     description:
-      'Meet study partners from around the world. Learn new perspectives and grow together.',
+      'Meet StudyMates from around the world. Learn new perspectives and grow together.',
     cta_text: 'Explore Now',
   },
   {
@@ -65,14 +65,12 @@ function Banner() {
         <h1 className="text-lg font-medium sm:text-xl md:text-2xl md:font-semibold xl:text-4xl">
           Don’t Study Alone Anymore!
         </h1>
-        <p className="opacity-80">Meet study buddies who make learning easier — and a lot more fun.</p>
+        <p className="opacity-80">
+          Meet study buddies who make learning easier — and a lot more fun.
+        </p>
       </div>
 
       <Swiper
-        pagination={{
-          clickable: true,
-          dynamicBullets: true,
-        }}
         modules={[Pagination, Autoplay]}
         slidesPerView={1.4}
         centeredSlides={false}

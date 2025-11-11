@@ -42,14 +42,14 @@ const lines = [
   {
     heading: 'Learning Feels Easier When You’re Not Alone',
     description:
-      'Discover study partners who fit your rhythm and help you stay consistent',
+      'Discover StudyMates who fit your rhythm and help you stay consistent',
   },
   {
     heading: 'Turn Boring Study Sessions into Power Hours',
     description: 'Match with focused partners and make every minute count',
   },
   {
-    heading: 'Find a Study Partner Who Gets You',
+    heading: 'Find a StudyMate Who Gets You',
     description: 'Chat, plan, and learn side by side — from anywhere',
   },
   {
@@ -112,7 +112,10 @@ function FindPartners() {
           .map((obj) => obj.p);
         setAllPartners(randomSorted);
       } catch (err) {
-        toast.error('Error loading partners profiles', { duration: 2500 });
+        toast.error('Error loading partners profiles', {
+          duration: 2500,
+          style: { color: 'black' },
+        });
         console.error(err);
       } finally {
         setAllPartnersLoading(false);
@@ -248,7 +251,7 @@ function FindPartners() {
                 setSearch(e.target.value);
               }}
               value={search}
-              className="w-[230px] min-w-0 rounded-r-md bg-white px-3 text-sm transition-[width] duration-150 outline-none max-sm:w-[170px]"
+              className="w-[230px] min-w-0 rounded-r-md bg-(--white) px-3 text-sm transition-[width,color,background-color] duration-150 outline-none max-sm:w-[170px]"
               type="text"
               placeholder="Search here"
             />

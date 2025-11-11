@@ -29,7 +29,13 @@ const router = createBrowserRouter([
         </AppLoadingProtected>
       </ContextProvider>
     ),
-    errorElement: <PageNotFound />,
+    errorElement: (
+      <ContextProvider>
+        <AppLoadingProtected>
+          <PageNotFound />
+        </AppLoadingProtected>
+      </ContextProvider>
+    ),
     children: [
       {
         path: '',

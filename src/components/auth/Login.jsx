@@ -91,7 +91,7 @@ function Login() {
           return 'Login failed';
         },
       },
-      { duration: 3500 },
+      { duration: 3500, style: { color: 'black' } },
     );
   }
 
@@ -99,7 +99,10 @@ function Login() {
     setInteractionDisabled(true);
     try {
       await signInWithPopup(auth, GoogleProvider);
-      toast.success('Welcome, Login was successful.', { duration: 3000 });
+      toast.success('Welcome, Login was successful.', {
+        duration: 3000,
+        style: { color: 'black' },
+      });
     } catch (err) {
       console.error(err);
     } finally {

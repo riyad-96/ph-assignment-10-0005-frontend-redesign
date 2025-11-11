@@ -4,8 +4,10 @@ import useAxios from '../hooks/useAxios';
 import { Star } from 'lucide-react';
 import { toast } from 'kitzo/react';
 import PartnerDetailsLoader from '../components/loaders/PartnerDetailsLoader';
+import { useGlobalContext } from '../contexts/GlobalContext';
 
 function PartnerDetails() {
+  const { user, setPartnerProfile } = useGlobalContext();
   const { id } = useParams();
   const server = useAxios();
 
@@ -35,7 +37,11 @@ function PartnerDetails() {
 
   async function sendPartnerRequest(toId) {
     try {
-      const res = await server.post('partner-request/send-request', { toId });
+      const res = await server.post('partner-request/send-request', {
+        toId,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      });
       setPartner((prev) => ({ ...prev, partnerCount: prev.partnerCount + 1 }));
       setIsPartner(true);
       return res.data;
@@ -44,13 +50,20 @@ function PartnerDetails() {
     }
   }
 
+  const { isDark } = useGlobalContext();
+
   function triggerParnterRequest(toId) {
     setSendingRequest(true);
     toast.promise(
       sendPartnerRequest(toId),
       {
         loading: 'Sending request',
-        success: () => {
+        success: (data) => {
+          console.log(data);
+          if (data?.partnerProfile) {
+            setPartnerProfile(data.partnerProfile);
+            toast.success('Partner profile created', 2000);
+          }
           setSendingRequest(false);
           return 'Partner request sent';
         },
@@ -59,7 +72,7 @@ function PartnerDetails() {
           return 'Request already exists';
         },
       },
-      { duration: 2300 },
+      { duration: 3000, style: { color: 'black' } },
     );
   }
 
@@ -99,7 +112,7 @@ function PartnerDetails() {
                 <div className="text-xl font-medium md:text-2xl">
                   <span>
                     Subject:{' '}
-                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow">
+                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow transition-colors duration-150">
                       {partner.subject}
                     </span>
                   </span>
@@ -108,7 +121,7 @@ function PartnerDetails() {
                 <div className="text-xl font-medium md:text-2xl">
                   <span>
                     Study mode:{' '}
-                    <span className="inline-flex items-center gap-2 rounded-md bg-(--white) px-2 font-normal shadow">
+                    <span className="inline-flex items-center gap-2 rounded-md bg-(--white) px-2 font-normal shadow transition-colors duration-150">
                       <span>{partner.studyMode}</span>
                       <span
                         className={`inline-block size-2 rounded-full md:size-3 ${partner.studyMode === 'Online' ? 'bg-emerald-300' : 'bg-zinc-400'}`}
@@ -120,7 +133,7 @@ function PartnerDetails() {
                 <div className="text-xl font-medium md:text-2xl">
                   <span>
                     Availability time:{' '}
-                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow">
+                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow transition-colors duration-150">
                       {partner.availabilityTime}
                     </span>
                   </span>
@@ -128,7 +141,7 @@ function PartnerDetails() {
                 <div className="text-xl font-medium md:text-2xl">
                   <span>
                     Location:{' '}
-                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow">
+                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow transition-colors duration-150">
                       {partner.location}
                     </span>
                   </span>
@@ -136,7 +149,7 @@ function PartnerDetails() {
                 <div className="text-xl font-medium md:text-2xl">
                   <span>
                     Experience:{' '}
-                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow">
+                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow transition-colors duration-150">
                       {partner.experienceLevel}
                     </span>
                   </span>
@@ -144,7 +157,7 @@ function PartnerDetails() {
                 <div className="text-xl font-medium md:text-2xl">
                   <span>
                     Partners:{' '}
-                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow">
+                    <span className="rounded-md bg-(--white) px-2 py-0.5 font-normal shadow transition-colors duration-150">
                       {partner.partnerCount}
                     </span>
                   </span>

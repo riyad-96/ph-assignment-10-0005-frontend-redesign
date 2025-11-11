@@ -1,26 +1,33 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../contexts/GlobalContext';
 
 const reviews = [
   'Found an amazing study buddy within minutes! Makes learning so much more fun.',
   'The partner matching is spot on — finally someone who studies the same subjects as me.',
-  'I actually stay consistent now because my study partner keeps me accountable. Love it!',
+  'I actually stay consistent now because my StudyMate keeps me accountable. Love it!',
   'Clean interface, easy to use, and super helpful during exam season.',
 ];
 
 function TwoExtraSection() {
   const { allPartners } = useGlobalContext();
-  const randomized = allPartners
-    .map((p) => ({ p, random: Math.random() }))
-    .sort((a, b) => a.random - b.random)
-    .map((obj) => obj.p)
-    .slice(0, 4);
+  const [randomized, setRandomized] = useState([]);
+
+  useEffect(() => {
+    if (allPartners.length < 1) return;
+    setRandomized(
+      [...allPartners]
+        .map((p) => ({ p, random: Math.random() }))
+        .sort((a, b) => a.random - b.random)
+        .map((obj) => obj.p)
+        .slice(0, 4),
+    );
+  }, [allPartners]);
 
   return (
     <>
       <div className="">
         <h2 className="mt-8 pl-1 text-lg font-medium md:text-2xl">
-          How the Study Partner Works!
+          How the StudyMate Works!
         </h2>
 
         <ol className="my-4 list-inside list-[number] space-y-3 pl-2">
@@ -40,7 +47,7 @@ function TwoExtraSection() {
           <li className="leading-5">
             <span className="font-medium">Send a Request</span> —{' '}
             <span className="font-light tracking-wide">
-              Request to connect with a potential study partner or group.
+              Request to connect with a potential StudyMate or group.
             </span>
           </li>
           <li className="leading-5">
@@ -60,7 +67,7 @@ function TwoExtraSection() {
           {randomized.map((p, i) => (
             <div
               key={`p${i}`}
-              className="space-y-3 rounded-lg bg-white px-4 py-3 shadow"
+              className="space-y-3 rounded-lg bg-(--white) px-4 py-3 shadow transition-colors duration-150"
             >
               <div className="flex items-center gap-2">
                 <div className="size-8 overflow-hidden rounded-full md:size-10">

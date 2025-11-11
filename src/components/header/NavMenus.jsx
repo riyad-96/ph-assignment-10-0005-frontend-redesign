@@ -103,11 +103,10 @@ function NavMenus() {
         </nav>
       </div>
 
-      <div>
+      <div className="flex items-center gap-2">
+        <ThemeToggler />
         {user ? (
           <div className="relative flex items-center gap-2">
-            <ThemeToggler />
-
             <div className="relative size-[30px] overflow-hidden rounded-full shadow md:size-[35px]">
               <img
                 draggable="false"
@@ -149,7 +148,9 @@ function NavMenus() {
                   <button
                     onClick={async () => {
                       await signOut(auth);
-                      toast.success('Log out successful');
+                      toast.success('Log out successful', {
+                        style: { color: 'black' },
+                      });
                     }}
                     className="rounded-md px-3 py-1.5 text-start text-sm pointer-fine:hover:bg-(--accent-color)"
                   >

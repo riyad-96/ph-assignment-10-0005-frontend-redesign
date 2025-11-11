@@ -4,11 +4,12 @@
 @plugin 'daisyui';
 
 :root {
-  --white: #fff;
+  --white: hsl(0, 0%, 100%);
   --main-bg: hsl(0, 0%, 97%);
-  --main-text-clr: #000;
+  --main-text-clr: hsl(0, 0%, 12%);
 
   --header-bg: hsl(0, 0%, 100%);
+  --header-bg-while-scroll: hsl(0, 0%, 100%, 0.8);
   --accent-color: hsl(197, 74%, 29%, 0.15);
   --dropdown-bg: hsl(0, 0%, 100%);
 
@@ -23,10 +24,31 @@
 }
 
 .dark {
-  --main-bg: #000;
-  --main-text-clr: #fff;
+  color-scheme: dark;
+  --white: hsl(0, 0%, 10%);
+  --main-bg: hsl(0, 0%, 6%);
+  --main-text-clr: hsl(0, 0%, 90%);
+
+  --header-bg: hsl(0, 0%, 10%);
+  --header-bg-while-scroll: hsl(0, 0%, 10%, 0.8);
+  --accent-color: hsl(197, 74%, 70%, 0.15);
+  --dropdown-bg: hsl(0, 0%, 8%);
+
+  --input-bg: hsl(0, 0%, 10%);
+  --input-focus-ring-clr: hsl(197, 74%, 30%);
+  --slick-border-clr: hsl(0, 0%, 21%);
+  --disabled-input-clr: hsl(0, 0%, 30%);
+
+  --loader-bg: hsl(0, 0%, 50%, 0.15);
+  --table-border-clr: hsl(0, 0%, 50%, 0.25);
+  --modal-bg: hsl(0, 0%, 12%);
 }
 
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
 /* Resets */
 * {
   scrollbar-width: thin;
@@ -67,7 +89,7 @@ img {
 }
 .header.scroll-trigger {
   box-shadow: 0 2px 5px -3px hsl(0, 0%, 0%, 0.2);
-  background-color: hsl(0, 0%, 100%, 0.8);
+  background-color: var(--header-bg-while-scroll);
 }
 
 .dropdown-shadow {

@@ -130,7 +130,10 @@ function Register() {
     setInteractionDisabled(true);
     try {
       await signInWithPopup(auth, GoogleProvider);
-      toast.success('Welcome, Login was successful.', { duration: 3000 });
+      toast.success('Welcome, Login was successful.', {
+        duration: 3000,
+        style: { color: 'black' },
+      });
     } catch (err) {
       console.error(err);
     } finally {
