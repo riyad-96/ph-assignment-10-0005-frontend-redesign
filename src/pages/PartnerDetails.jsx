@@ -11,6 +11,7 @@ function PartnerDetails() {
 
   const [partnerLoading, setPartnerLoading] = useState(true);
   const [partner, setPartner] = useState(null);
+  const [sendingRequest, setSendingRequest] = useState(false);
   const [isPartner, setIsPartner] = useState(false);
 
   useEffect(() => {
@@ -44,11 +45,22 @@ function PartnerDetails() {
   }
 
   function triggerParnterRequest(toId) {
-    toast.promise(sendPartnerRequest(toId), {
-      loading: 'Sending request',
-      success: 'Partner request sent',
-      error: 'Request already exists',
-    });
+    setSendingRequest(true);
+    toast.promise(
+      sendPartnerRequest(toId),
+      {
+        loading: 'Sending request',
+        success: () => {
+          setSendingRequest(false);
+          return 'Partner request sent';
+        },
+        error: () => {
+          setSendingRequest(false);
+          return 'Request already exists';
+        },
+      },
+      { duration: 2300 },
+    );
   }
 
   return (
@@ -142,15 +154,19 @@ function PartnerDetails() {
 
             <div className="mx-auto mt-16 w-[260px] max-md:w-[230px]">
               {isPartner ? (
-                <span className="flex w-full justify-center rounded-lg bg-(--accent-color)/20 py-2 font-medium duration-150 select-none md:py-2.5 md:text-lg">
+                <span className="grid h-10 w-full place-items-center rounded-lg bg-(--accent-color)/20 font-medium duration-150 select-none md:h-12 md:text-lg">
                   Partner request sent
                 </span>
               ) : (
                 <button
                   onClick={() => triggerParnterRequest(id)}
-                  className="flex w-full justify-center rounded-lg bg-(--accent-color) py-2 font-medium shadow transition-shadow duration-150 md:py-2.5 md:text-lg pointer-fine:hover:shadow-transparent"
+                  className="grid h-10 w-full place-items-center rounded-lg bg-(--accent-color) font-medium shadow transition-shadow duration-150 md:h-12 md:text-lg pointer-fine:hover:shadow-transparent"
                 >
-                  Send partner request
+                  {sendingRequest ? (
+                    <span className="loading loading-spinner loading-sm opacity-70"></span>
+                  ) : (
+                    <span>Send partner request</span>
+                  )}
                 </button>
               )}
             </div>

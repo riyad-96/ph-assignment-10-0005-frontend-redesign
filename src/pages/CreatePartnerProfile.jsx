@@ -121,7 +121,7 @@ function CreatePartnerProfile() {
           console.error(err);
           return 'Error while updating profile';
         },
-      });
+      }, {duration: 2300});
     } else {
       toast.promise(create(createInfo), {
         loading: 'Creating partner profile',
@@ -134,7 +134,7 @@ function CreatePartnerProfile() {
           console.error(err);
           return 'Error while creating profile';
         },
-      });
+      }, {duration: 2300});
     }
   }
 

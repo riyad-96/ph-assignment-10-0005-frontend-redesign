@@ -4,7 +4,7 @@
 @plugin 'daisyui';
 
 :root {
-  --white: #fff;;
+  --white: #fff;
   --main-bg: hsl(0, 0%, 97%);
   --main-text-clr: #000;
 
@@ -18,6 +18,8 @@
   --disabled-input-clr: hsl(0, 0%, 30%);
 
   --loader-bg: hsl(0, 0%, 50%, 0.15);
+  --table-border-clr: hsl(0, 0%, 50%, 0.25);
+  --modal-bg: hsl(0, 0%, 97%);
 }
 
 .dark {
