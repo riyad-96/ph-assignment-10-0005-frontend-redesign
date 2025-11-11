@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxios from '../hooks/useAxios';
 import { Star } from 'lucide-react';
+import { toast } from 'kitzo/react';
+import PartnerDetailsLoader from '../components/loaders/PartnerDetailsLoader';
 
 function PartnerDetails() {
   const { id } = useParams();
@@ -14,8 +16,14 @@ function PartnerDetails() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await server.get('base-partner/all');
-        setPartner([...res.data].find((p) => p._id === id));
+        const response = await server.get('base-partner/all');
+        setPartner([...response.data].find((p) => p._id === id));
+        const exists = await server.post('partner-request/check-request', {
+          partnerId: id,
+        });
+        if (exists.data.message === 'request-already-exists') {
+          setIsPartner(true);
+        }
       } catch (err) {
         console.error(err);
       } finally {
@@ -24,17 +32,30 @@ function PartnerDetails() {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log(partner);
-  }, [partner]);
+  async function sendPartnerRequest(toId) {
+    try {
+      const res = await server.post('partner-request/send-request', { toId });
+      setPartner((prev) => ({ ...prev, partnerCount: prev.partnerCount + 1 }));
+      setIsPartner(true);
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  function triggerParnterRequest(toId) {
+    toast.promise(sendPartnerRequest(toId), {
+      loading: 'Sending request',
+      success: 'Partner request sent',
+      error: 'Request already exists',
+    });
+  }
 
   return (
     <div className="px-2 md:px-3">
       <div className="mx-auto max-w-[1440px]">
         {partnerLoading ? (
-          <div>
-            <div></div>
-          </div>
+          <PartnerDetailsLoader />
         ) : (
           <div className="space-y-3">
             <h1 className="py-4 text-xl font-medium tracking-wide opacity-90 max-md:text-center sm:text-xl md:text-2xl md:font-semibold xl:text-4xl">
@@ -119,10 +140,19 @@ function PartnerDetails() {
               </div>
             </div>
 
-            <div className="mx-auto mt-16 max-w-[300px]">
-              <button className="w-full rounded-lg bg-(--accent-color) py-2 md:py-3 text-lg font-medium shadow transition-shadow duration-150 md:text-xl pointer-fine:hover:shadow-transparent">
-                Send partner request
-              </button>
+            <div className="mx-auto mt-16 w-[260px] max-md:w-[230px]">
+              {isPartner ? (
+                <span className="flex w-full justify-center rounded-lg bg-(--accent-color)/20 py-2 font-medium duration-150 select-none md:py-2.5 md:text-lg">
+                  Partner request sent
+                </span>
+              ) : (
+                <button
+                  onClick={() => triggerParnterRequest(id)}
+                  className="flex w-full justify-center rounded-lg bg-(--accent-color) py-2 font-medium shadow transition-shadow duration-150 md:py-2.5 md:text-lg pointer-fine:hover:shadow-transparent"
+                >
+                  Send partner request
+                </button>
+              )}
             </div>
           </div>
         )}
