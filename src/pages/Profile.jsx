@@ -56,6 +56,8 @@ function Profile() {
     };
 
     if (!isAbleToSubmit(formData)) return;
+
+    setSubmittingForm(true);
     toast.promise(updateProfileInfo(formData), {
       loading: 'Checking profile info',
       success: (data) => {
@@ -64,9 +66,13 @@ function Profile() {
           message = 'Profile created and updated';
         }
         setUserProfile(data.userProfile);
+        setSubmittingForm(false);
         return message;
       },
-      error: 'Profile udpate failed',
+      error: () => {
+        setSubmittingForm(false);
+        return 'Profile udpate failed';
+      },
     });
   }
 

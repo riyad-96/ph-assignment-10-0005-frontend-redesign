@@ -54,7 +54,6 @@ function MyConnections() {
       {
         loading: 'Removing connection',
         success: (data) => {
-          console.log(data);
           setConnections((prev) =>
             prev.filter((p) => p._id !== deleteConnection._id),
           );
@@ -62,9 +61,8 @@ function MyConnections() {
           setDeleting(false);
           return 'Connection successfully removed';
         },
-        error: (err) => {
+        error: () => {
           setDeleting(false);
-          console.log(err);
           return 'Failed while removing connection';
         },
       },
@@ -94,7 +92,7 @@ function MyConnections() {
             {connections.length < 1 ? (
               <div className="grid min-h-[200px] place-items-center">
                 <div className="text-center opacity-80 max-sm:text-sm">
-                  Your connections with appear here
+                  Your connections will appear here
                 </div>
               </div>
             ) : (

@@ -92,7 +92,6 @@ function MyConnectionUpdateModal({ state, func }) {
     };
 
     if (!ableToSubmit(formData)) return;
-    console.log(formData);
 
     toast.promise(
       updateRequestPartnerProfile(formData),

@@ -130,7 +130,6 @@ function CreatePartnerProfile() {
         {
           loading: 'Updating partner profile',
           success: (data) => {
-            console.log(data.userProfile);
             setUserProfile(data.userProfile);
             return 'Profile update successful';
           },
@@ -147,7 +146,6 @@ function CreatePartnerProfile() {
         {
           loading: 'Creating partner profile',
           success: (data) => {
-            console.log(data.userProfile);
             setUserProfile(data.userProfile);
             return 'Profile successfully created';
           },
