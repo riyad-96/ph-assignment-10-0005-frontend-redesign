@@ -7,7 +7,7 @@ import PartnerDetailsLoader from '../components/loaders/PartnerDetailsLoader';
 import { useGlobalContext } from '../contexts/GlobalContext';
 
 function PartnerDetails() {
-  const { user, setPartnerProfile } = useGlobalContext();
+  const { user, setUserProfile } = useGlobalContext();
   const { id } = useParams();
   const server = useAxios();
 
@@ -50,8 +50,6 @@ function PartnerDetails() {
     }
   }
 
-  const { isDark } = useGlobalContext();
-
   function triggerParnterRequest(toId) {
     setSendingRequest(true);
     toast.promise(
@@ -59,17 +57,17 @@ function PartnerDetails() {
       {
         loading: 'Sending request',
         success: (data) => {
-          console.log(data);
-          if (data?.partnerProfile) {
-            setPartnerProfile(data.partnerProfile);
-            toast.success('Partner profile created', 2000);
+          let message = 'Request was sent';
+          if (data.code && data.code === 'created') {
+            message = 'Profile created and request was sent';
           }
+          setUserProfile(data.userProfile);
           setSendingRequest(false);
-          return 'Partner request sent';
+          return message;
         },
         error: () => {
           setSendingRequest(false);
-          return 'Request already exists';
+          return 'Partner already exists';
         },
       },
       { duration: 3000, style: { color: 'black' } },

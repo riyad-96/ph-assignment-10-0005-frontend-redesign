@@ -18,6 +18,7 @@ import PageProtected from './routes/PageProtected.jsx';
 import { StrictMode } from 'react';
 import PartnerDetails from './pages/PartnerDetails.jsx';
 import PageNotFound from './pages/PageNotFound.jsx';
+import Profile from './pages/Profile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,14 @@ const router = createBrowserRouter([
           {
             path: 'partners',
             element: <FindPartners />,
+          },
+          {
+            path: 'profile',
+            element: (
+              <PageProtected>
+                <Profile />
+              </PageProtected>
+            ),
           },
           {
             path: 'partner/:id',

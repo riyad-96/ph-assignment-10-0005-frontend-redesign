@@ -3,6 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @plugin 'daisyui';
 
+/* colors */
 :root {
   --white: hsl(0, 0%, 100%);
   --main-bg: hsl(0, 0%, 97%);
@@ -21,10 +22,12 @@
   --loader-bg: hsl(0, 0%, 50%, 0.15);
   --table-border-clr: hsl(0, 0%, 50%, 0.25);
   --modal-bg: hsl(0, 0%, 97%);
+
+  --scrollbar-bg: var(--main-bg);
+  --scrollbar-thumb: hsl(0, 0%, 70%);
 }
 
 .dark {
-  color-scheme: dark;
   --white: hsl(0, 0%, 10%);
   --main-bg: hsl(0, 0%, 6%);
   --main-text-clr: hsl(0, 0%, 90%);
@@ -42,17 +45,19 @@
   --loader-bg: hsl(0, 0%, 50%, 0.15);
   --table-border-clr: hsl(0, 0%, 50%, 0.25);
   --modal-bg: hsl(0, 0%, 12%);
+
+  --scrollbar-bg: var(--main-bg);
+  --scrollbar-thumb: hsl(0, 0%, 30%);
+
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
 /* Resets */
 * {
   scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
 }
+
 body {
   font-family:
     'Outfit',

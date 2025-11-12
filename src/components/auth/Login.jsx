@@ -126,7 +126,7 @@ function Login() {
               setEmail(e.target.value);
             }}
             value={email}
-            className="w-full min-w-0 rounded-full border border-zinc-200 bg-white px-4 py-2 tracking-wide outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+            className="w-full min-w-0 rounded-full border border-zinc-200 bg-(--input-bg) px-4 py-2 tracking-wide transition-colors duration-150 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700"
             id="email"
             type="email"
             placeholder="Enter your email"
@@ -174,7 +174,7 @@ function Login() {
                       damping: 25,
                     },
                   }}
-                  className="absolute top-1/2 right-2 z-2 grid size-10 -translate-y-1/2 place-items-center rounded-full text-zinc-600"
+                  className="dark:text-zinc-400 absolute top-1/2 right-2 z-2 grid size-10 -translate-y-1/2 place-items-center rounded-full text-zinc-600"
                 >
                   {passShowing ? <EyeOff size="20" /> : <EyeOpened size="20" />}
                 </motion.button>
@@ -187,7 +187,7 @@ function Login() {
                 setPassword(e.target.value);
               }}
               value={password}
-              className="w-full min-w-0 rounded-full border border-zinc-200 bg-white px-4 py-2 tracking-wide outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+              className="w-full min-w-0 rounded-full border border-zinc-200 bg-(--input-bg) px-4 py-2 tracking-wide transition-colors duration-150 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700"
               id="password"
               type={passShowing ? 'text' : 'password'}
               placeholder="Enter your password"
@@ -207,7 +207,7 @@ function Login() {
               if (loggingIn) return;
               sendLoginRequest();
             }}
-            className="grid h-[45px] w-full place-items-center rounded-full bg-zinc-800 tracking-wide text-white"
+            className="grid h-[45px] w-full place-items-center rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
           >
             {loggingIn ? (
               <span className="loading loading-spinner loading-sm"></span>
@@ -233,7 +233,7 @@ function Login() {
       <div className="mt-4">
         <button
           onClick={loginWithGoogle}
-          className="flex h-[45px] w-full items-center justify-center gap-2 rounded-full bg-zinc-800 tracking-wide text-white"
+          className="flex h-[45px] w-full items-center justify-center gap-2 rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
         >
           <span>
             <GoogleIcon size="20" />
@@ -246,7 +246,7 @@ function Login() {
         <span className="flex items-center gap-2">
           <span>Don't have an account?</span>
           <Link
-            className="text-blue-500 underline"
+            className="text-blue-500 dark:text-blue-400 underline"
             to="/auth/register"
             children="Register"
             replace

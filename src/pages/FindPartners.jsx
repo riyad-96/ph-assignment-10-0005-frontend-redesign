@@ -24,6 +24,18 @@ const sorts = [
     text: 'Study mode: Offline',
   },
   {
+    sort: 'beginner',
+    text: 'Experience: Beginner',
+  },
+  {
+    sort: 'intermediate',
+    text: 'Experience: Intermediate',
+  },
+  {
+    sort: 'expert',
+    text: 'Experience: Expert',
+  },
+  {
     sort: 'reset',
     text: 'Show all',
   },
@@ -96,6 +108,19 @@ function FindPartners() {
     }
     if (sort === 'offline') {
       return result.filter((p) => p.studyMode.toLowerCase() === 'offline');
+    }
+    if (sort === 'beginner') {
+      return result.filter(
+        (p) => p.experienceLevel.toLowerCase() === 'beginner',
+      );
+    }
+    if (sort === 'intermediate') {
+      return result.filter(
+        (p) => p.experienceLevel.toLowerCase() === 'intermediate',
+      );
+    }
+    if (sort === 'expert') {
+      return result.filter((p) => p.experienceLevel.toLowerCase() === 'expert');
     }
 
     return result;
@@ -182,10 +207,12 @@ function FindPartners() {
               onClick={() => {
                 setSortDropDownShowing(true);
               }}
-              className="sort-dropdown-open-btn group flex h-8 items-center gap-1 rounded-md bg-(--accent-color)/50 pr-2.5 pl-3 text-sm font-medium transition-colors duration-150 hover:bg-(--accent-color)"
+              className={`sort-dropdown-open-btn group flex h-8 items-center gap-1 rounded-md pr-2.5 pl-3 text-sm font-medium transition-colors duration-150 ${sortDropDownShowing ? 'bg-(--accent-color)' : 'bg-(--accent-color)/50 hover:bg-(--accent-color)'}`}
             >
               <span>Sort by</span>
-              <span className="rounded-md bg-(--accent-color) px-1 py-0.5 transition-colors duration-150 group-hover:bg-transparent">
+              <span
+                className={`rounded-md px-1 py-0.5 transition-colors duration-150 ${sortDropDownShowing ? '' : 'bg-(--accent-color) group-hover:bg-transparent'}`}
+              >
                 <ArrowUpDown size="14" />
               </span>
             </button>

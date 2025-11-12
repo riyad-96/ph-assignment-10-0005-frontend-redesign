@@ -14,13 +14,13 @@ function GlobalContext({ children }) {
   const [topStudyPartners, setTopStudyPartners] = useState([]);
 
   // partner profile
-  const [partnerProfile, setPartnerProfile] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
 
   // theme
   const [isDark, setIsDark] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme && savedTheme === 'dark') {
-      return true;
+    if (savedTheme) {
+      return savedTheme === 'dark';
     } else {
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
@@ -41,8 +41,8 @@ function GlobalContext({ children }) {
         setAllPartners,
         topStudyPartners,
         setTopStudyPartners,
-        partnerProfile,
-        setPartnerProfile,
+        userProfile,
+        setUserProfile,
         isDark,
         setIsDark,
       }}

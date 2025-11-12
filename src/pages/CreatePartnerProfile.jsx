@@ -19,7 +19,7 @@ const availabilityTimes = [
 
 function CreatePartnerProfile() {
   const server = useAxios();
-  const { user, partnerProfile, setPartnerProfile } = useGlobalContext();
+  const { user, userProfile, setUserProfile } = useGlobalContext();
 
   const [formError, setFormError] = useState({
     name: '',
@@ -33,10 +33,10 @@ function CreatePartnerProfile() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await server.get('partner-profile/get');
-        setPartnerProfile(res.data);
+        const res = await server.get('user/get');
+        setUserProfile(res.data);
       } catch (err) {
-        setPartnerProfile(null);
+        setUserProfile(null);
       } finally {
         setPartnerProfileLoading(false);
       }
@@ -76,7 +76,7 @@ function CreatePartnerProfile() {
   async function create(createInfo) {
     setSubmittingForm(true);
     try {
-      const res = await server.post('partner-profile/create', createInfo);
+      const res = await server.post('user/create', createInfo);
       await updateFirebaseInfo(createInfo.name, createInfo.profileImage);
       return res.data;
     } catch (err) {
@@ -88,7 +88,7 @@ function CreatePartnerProfile() {
   async function update(updateInfo) {
     setSubmittingForm(true);
     try {
-      const res = await server.post('partner-profile/update', updateInfo);
+      const res = await server.post('user/update', updateInfo);
       await updateFirebaseInfo(updateInfo.name, updateInfo.profileImage);
       return res.data;
     } catch (err) {
@@ -114,7 +114,7 @@ function CreatePartnerProfile() {
 
     if (!ableToSubmit(createInfo)) return;
 
-    if (partnerProfile) {
+    if (userProfile) {
       const updateInfo = {
         name: form.name.value,
         profileImage: form.profileImage.value,
@@ -129,8 +129,9 @@ function CreatePartnerProfile() {
         update(updateInfo),
         {
           loading: 'Updating partner profile',
-          success: (newProfileData) => {
-            setPartnerProfile(newProfileData);
+          success: (data) => {
+            console.log(data.userProfile);
+            setUserProfile(data.userProfile);
             return 'Profile update successful';
           },
           error: (err) => {
@@ -145,9 +146,9 @@ function CreatePartnerProfile() {
         create(createInfo),
         {
           loading: 'Creating partner profile',
-          success: (profileData) => {
-            console.log(profileData);
-            setPartnerProfile(profileData);
+          success: (data) => {
+            console.log(data.userProfile);
+            setUserProfile(data.userProfile);
             return 'Profile successfully created';
           },
           error: (err) => {
@@ -163,17 +164,17 @@ function CreatePartnerProfile() {
   return (
     <div className="px-2 md:px-3">
       <div className="mx-auto max-w-[1440px]">
-        <h2 className="mb-4 pl-1 text-lg font-medium md:text-2xl">
+        <h1 className="mb-4 pl-1 text-lg font-medium md:text-2xl">
           {partnerProfileLoading ? (
             <span className="block h-8 w-[200px] animate-pulse rounded-lg bg-(--loader-bg)"></span>
           ) : (
             <span>
-              {partnerProfile
+              {userProfile
                 ? 'Update partner profile'
                 : 'Create partner profile'}
             </span>
           )}
-        </h2>
+        </h1>
 
         {partnerProfileLoading ? (
           <PartnerProfileLoader />
@@ -198,7 +199,7 @@ function CreatePartnerProfile() {
                       type="text"
                       name="name"
                       placeholder="Enter your name"
-                      defaultValue={partnerProfile?.name || user.displayName}
+                      defaultValue={userProfile?.name || user.displayName}
                       onChange={() => {
                         if (formError.name.trim()) {
                           setFormError((prev) => ({ ...prev, name: '' }));
@@ -217,7 +218,7 @@ function CreatePartnerProfile() {
                       Default email:
                     </label>
                     <input
-                      className="transition-colors duration-150 h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
                       id="email"
                       type="email"
                       name="email"
@@ -237,13 +238,13 @@ function CreatePartnerProfile() {
                       name="profileImage"
                       placeholder="Enter profile image url"
                       defaultValue={
-                        partnerProfile?.profileImage || user.photoURL || ''
+                        userProfile?.profileImage || user.photoURL || ''
                       }
                       onChange={() => {
                         if (formError.profileImage.trim()) {
                           setFormError((prev) => ({
                             ...prev,
-                            profileimage: '',
+                            profileImage: '',
                           }));
                         }
                       }}
@@ -265,7 +266,7 @@ function CreatePartnerProfile() {
                       type="text"
                       name="subject"
                       placeholder="Enter subject"
-                      defaultValue={partnerProfile?.subject || ''}
+                      defaultValue={userProfile?.subject || ''}
                       onChange={() => {
                         if (formError.subject.trim()) {
                           setFormError((prev) => ({ ...prev, subject: '' }));
@@ -286,7 +287,7 @@ function CreatePartnerProfile() {
                     <select
                       id="studyMode"
                       name="studyMode"
-                      defaultValue={partnerProfile?.studyMode || 'Online'}
+                      defaultValue={userProfile?.studyMode || 'Online'}
                       className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
                     >
                       <option defaultValue="Online">Online</option>
@@ -308,7 +309,7 @@ function CreatePartnerProfile() {
                       id="availabilityTime"
                       name="availabilityTime"
                       defaultValue={
-                        partnerProfile?.availabilityTime ||
+                        userProfile?.availabilityTime ||
                         'Early Morning (5-8 AM)'
                       }
                     >
@@ -330,7 +331,7 @@ function CreatePartnerProfile() {
                       type="text"
                       name="location"
                       placeholder="Enter Location"
-                      defaultValue={partnerProfile?.location || ''}
+                      defaultValue={userProfile?.location || ''}
                       onChange={() => {
                         if (formError.location.trim()) {
                           setFormError((prev) => ({ ...prev, location: '' }));
@@ -355,9 +356,7 @@ function CreatePartnerProfile() {
                       id="experienceLevel"
                       name="experienceLevel"
                       className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
-                      defaultValue={
-                        partnerProfile?.experienceLevel || 'Beginner'
-                      }
+                      defaultValue={userProfile?.experienceLevel || 'Beginner'}
                     >
                       <option defaultValue="Beginner">Beginner</option>
                       <option defaultValue="Intermediate">Intermediate</option>
@@ -370,11 +369,11 @@ function CreatePartnerProfile() {
                       Profile Rating:
                     </label>
                     <input
-                      className="transition-colors duration-150 h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
                       id="rating"
                       type="text"
                       name="rating"
-                      defaultValue={partnerProfile?.rating || 0}
+                      defaultValue={userProfile?.rating || 0}
                       readOnly
                     />
                   </div>
@@ -384,11 +383,11 @@ function CreatePartnerProfile() {
                       Partner Count:
                     </label>
                     <input
-                      className="transition-colors duration-150 h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
                       id="partnerCount"
                       type="text"
                       name="partnerCount"
-                      defaultValue={partnerProfile?.partnerCount || 0}
+                      defaultValue={userProfile?.partnerCount || 0}
                       readOnly
                     />
                   </div>
@@ -396,13 +395,13 @@ function CreatePartnerProfile() {
               </div>
 
               <button
-                className="transition-[background-color] duration-150 mt-6 grid h-8 w-[140px] place-items-center rounded-md bg-(--accent-color) px-4 py-1.5 text-sm"
+                className="mt-6 grid h-8 w-[140px] place-items-center rounded-md bg-(--accent-color) px-4 py-1.5 text-sm transition-[background-color] duration-150"
                 type="submit"
               >
                 {submittingForm ? (
                   <span className="loading loading-spinner loading-xs"></span>
                 ) : (
-                  <>{partnerProfile ? 'Update profile' : 'Create profile'}</>
+                  <>{userProfile ? 'Update profile' : 'Create profile'}</>
                 )}
               </button>
             </form>

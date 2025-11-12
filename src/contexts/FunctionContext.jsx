@@ -18,7 +18,7 @@ function FunctionContext({ children }) {
     setAllPartners,
     setTopStudyPartners,
     setPartnersLoading,
-    setPartnerProfile,
+    setUserProfile,
     isDark,
     setIsDark,
   } = useGlobalContext();
@@ -60,15 +60,15 @@ function FunctionContext({ children }) {
     })();
   }, [appLoading]);
 
-  // fetch partner profile data
+  // fetch user profile data
   useEffect(() => {
     if (!user) return;
     (async () => {
       try {
-        const res = await server.get('partner-profile/get');
-        setPartnerProfile(res.data);
+        const response = await server.get('user/get');
+        setUserProfile(response.data);
       } catch (err) {
-        setPartnerProfile(null);
+        setUserProfile(null);
       }
     })();
   }, [user]);
@@ -78,6 +78,25 @@ function FunctionContext({ children }) {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
+
+  // icon listener
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function updateIcon(e) {
+      document.querySelector('link[rel="icon"]')?.remove();
+
+      const newIcon = document.createElement('link');
+      newIcon.rel = 'icon';
+      newIcon.type = 'image/svg+xml';
+      newIcon.href = e.matches ? '/sm-logo-white.png' : '/sm-logo.png';
+      document.head.appendChild(newIcon);
+    }
+    updateIcon({ matches: media.matches });
+
+    media.addEventListener('change', updateIcon);
+    return () => media.removeEventListener('change', updateIcon);
+  }, []);
 
   return (
     <functionContext.Provider value={{}}>{children}</functionContext.Provider>

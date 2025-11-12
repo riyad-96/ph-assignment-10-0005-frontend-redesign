@@ -23,7 +23,7 @@ function EachStudyPartnerCard({ p, studymode = false }) {
             src={profileImage}
             alt={`${name}'s profile photo`}
           />
-          <span className="text-black absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-md bg-white/70 px-2 text-sm text-nowrap backdrop-blur-sm md:px-3 md:py-0.5 lg:text-base">
+          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-md bg-white/70 px-2 text-sm text-nowrap text-black backdrop-blur-sm md:px-3 md:py-0.5 lg:text-base">
             <span className="font-medium">{name}</span>
           </span>
         </div>
@@ -41,8 +41,7 @@ function EachStudyPartnerCard({ p, studymode = false }) {
           </p>
           <p className="flex items-center gap-1">
             <span>
-              Rating:
-              <span className="font-medium">{rating}</span>
+              Rating: <span className="font-medium">{rating}</span>
             </span>
             <span className="text-yellow-500">
               <Star size="18" fill="currentColor" />

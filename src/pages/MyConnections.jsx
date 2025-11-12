@@ -268,7 +268,7 @@ function MyConnections() {
                     if (deleting) return;
                     triggerDelete();
                   }}
-                  className="grid h-9 w-24 place-items-center rounded-full bg-red-500/20 text-sm tracking-wide shadow"
+                  className="grid h-9 w-24 place-items-center rounded-full bg-red-500/50 text-sm tracking-wide shadow"
                 >
                   {deleting ? (
                     <span className="loading loading-spinner loading-sm opacity-70"></span>

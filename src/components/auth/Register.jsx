@@ -157,7 +157,7 @@ function Register() {
               setName(e.target.value);
             }}
             value={name}
-            className="w-full min-w-0 rounded-full border border-zinc-200 bg-white px-4 py-2 tracking-wide outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+            className="w-full min-w-0 rounded-full border border-zinc-200 bg-(--input-bg) px-4 py-2 tracking-wide transition-colors duration-150 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700"
             id="name"
             type="text"
             placeholder="Enter your Name"
@@ -179,7 +179,7 @@ function Register() {
               setPhotoURL(e.target.value);
             }}
             value={photoURL}
-            className="w-full min-w-0 rounded-full border border-zinc-200 bg-white px-4 py-2 tracking-wide outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+            className="w-full min-w-0 rounded-full border border-zinc-200 bg-(--input-bg) px-4 py-2 tracking-wide transition-colors duration-150 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700"
             id="photoURL"
             type="text"
             placeholder="Enter your photoURL"
@@ -201,7 +201,7 @@ function Register() {
               setEmail(e.target.value);
             }}
             value={email}
-            className="w-full min-w-0 rounded-full border border-zinc-200 bg-white px-4 py-2 tracking-wide outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+            className="w-full min-w-0 rounded-full border border-zinc-200 bg-(--input-bg) px-4 py-2 tracking-wide transition-colors duration-150 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700"
             id="email"
             type="email"
             placeholder="Enter your email"
@@ -249,7 +249,7 @@ function Register() {
                       damping: 25,
                     },
                   }}
-                  className="absolute top-1/2 right-2 z-2 grid size-10 -translate-y-1/2 place-items-center rounded-full text-zinc-600"
+                  className="absolute top-1/2 right-2 z-2 grid size-10 -translate-y-1/2 place-items-center rounded-full text-zinc-600 dark:text-zinc-400"
                 >
                   {passShowing ? <EyeOff size="20" /> : <EyeOpened size="20" />}
                 </motion.button>
@@ -262,7 +262,7 @@ function Register() {
                 setPassword(e.target.value);
               }}
               value={password}
-              className="w-full min-w-0 rounded-full border border-zinc-200 bg-white px-4 py-2 tracking-wide outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+              className="w-full min-w-0 rounded-full border border-zinc-200 bg-(--input-bg) px-4 py-2 tracking-wide transition-colors duration-150 outline-none placeholder:text-zinc-400 focus:border-zinc-500 dark:border-zinc-700"
               id="password"
               type={passShowing ? 'text' : 'password'}
               placeholder="Enter your password"
@@ -282,7 +282,7 @@ function Register() {
               if (registering) return;
               sendRegisterRequest();
             }}
-            className="grid h-[45px] w-full place-items-center rounded-full bg-zinc-800 tracking-wide text-white"
+            className="grid h-[45px] w-full place-items-center rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
           >
             {registering ? (
               <span className="loading loading-spinner loading-sm"></span>
@@ -298,7 +298,7 @@ function Register() {
       <div className="mt-2">
         <button
           onClick={() => signupWithGoogle()}
-          className="flex h-[45px] w-full items-center justify-center gap-2 rounded-full bg-zinc-800 tracking-wide text-white"
+          className="flex h-[45px] w-full items-center justify-center gap-2 rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
         >
           <span>
             <GoogleIcon size="20" />
@@ -311,7 +311,7 @@ function Register() {
         <span className="flex items-center gap-2">
           <span>Already have an account?</span>
           <Link
-            className="text-blue-500 underline"
+            className="text-blue-500 underline dark:text-blue-400"
             to="/auth/log-in"
             children="Login"
             replace

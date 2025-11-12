@@ -209,7 +209,7 @@ function MyConnectionUpdateModal({ state, func }) {
                       if (formError.profileImage.trim()) {
                         setFormError((prev) => ({
                           ...prev,
-                          profileimage: '',
+                          profileImage: '',
                         }));
                       }
                     }}

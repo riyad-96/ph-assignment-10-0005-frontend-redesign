@@ -1,11 +1,15 @@
+import { useGlobalContext } from '../../contexts/GlobalContext';
+
 function Logo({ onClick = () => {}, hideText = false }) {
+  const { isDark } = useGlobalContext();
+
   return (
     <div className="relative flex w-fit items-center">
       <div className="size-10 shrink-0">
         <img
           draggable="false"
           className="size-full"
-          src="/study-logo.png"
+          src={isDark ? '/sm-logo-white.png' : '/sm-logo.png'}
           alt=""
         />
       </div>
