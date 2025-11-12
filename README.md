@@ -15,3 +15,13 @@ This website helps you find a study partner who can join you during your study s
 - **Smart Partner Search** – Find study partners using advanced filters.
 - **Easy Connections** – Add or remove study partners with a single click.
 - **Dark & Light Themes** – Switch anytime for comfortable studying.
+
+##### Tech Stack & Libraries
+
+- **React + React Router DOM** – Component-based SPA.
+- **Firebase Authentication** – Secure Google sign-in and session handling.
+- **Axios** – Efficient and clean API requests.
+- **Swiper** – Interactive and responsive slide components.
+- **Motion** – Smooth animations and transitions.
+- **Lucide Icons** – Modern, lightweight icon set.
+- **Kitzo** (Custom Library) – My own utility toolkit for toast messages.
