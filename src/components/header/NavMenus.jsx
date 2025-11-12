@@ -10,7 +10,6 @@ import ThemeToggler from './ThemeToggler';
 
 function NavMenus() {
   const { user, userProfile } = useGlobalContext();
-  console.log(user);
 
   const [dropDownShowing, setDropDownShowing] = useState(false);
   const [menuDropDownShowing, setMenuDropDownShowing] = useState(false);

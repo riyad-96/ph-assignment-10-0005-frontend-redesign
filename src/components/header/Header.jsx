@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../contexts/GlobalContext';
 import Logo from './Logo';
 import NavMenus from './NavMenus';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Header() {
   const { user } = useGlobalContext();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [hideLogoText, setHideLogoText] = useState(false);
 
   useEffect(() => {
@@ -38,7 +42,13 @@ function Header() {
       <div className="mx-auto flex h-full max-w-[1440px] items-center gap-2 md:gap-4">
         <Logo
           hideText={hideLogoText ? true : false}
-          onClick={() => window.location.reload()}
+          onClick={() => {
+            if (location.pathname !== '/') {
+              navigate('/');
+            } else {
+              window.location.reload();
+            }
+          }}
         />
         <NavMenus />
       </div>
