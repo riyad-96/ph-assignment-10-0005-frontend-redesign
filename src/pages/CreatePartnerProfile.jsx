@@ -34,7 +34,7 @@ function CreatePartnerProfile() {
     (async () => {
       try {
         const res = await server.get('user/get');
-        setUserProfile(res.data);
+        setUserProfile(res.data.userProfile);
       } catch (err) {
         setUserProfile(null);
       } finally {

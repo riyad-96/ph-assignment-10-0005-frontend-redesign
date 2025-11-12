@@ -3,7 +3,7 @@ import { useGlobalContext } from './contexts/GlobalContext';
 import { ToastContainer } from 'kitzo/react';
 
 function App() {
-  const { isDark, interactionDisabled } = useGlobalContext();
+  const { interactionDisabled } = useGlobalContext();
 
   return (
     <div
@@ -14,7 +14,9 @@ function App() {
       )}
 
       <Outlet />
-      <ToastContainer position="top-right" />
+      <ToastContainer
+        position={window.innerWidth < 500 ? 'top-center' : 'top-right'}
+      />
     </div>
   );
 }

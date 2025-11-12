@@ -28,7 +28,7 @@ function EachStudyPartnerCard({ p, studymode = false }) {
           </span>
         </div>
         <div className="max-sm:text-sm">
-          <p>
+          <p className="line-clamp-1">
             Subject: <span className="font-medium">{subject}</span>
           </p>
           {studymode && (
