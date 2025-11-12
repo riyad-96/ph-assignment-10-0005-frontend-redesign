@@ -85,6 +85,7 @@ function Profile() {
           <div className="pb-8">
             <div className="mx-auto aspect-square h-[150px] overflow-hidden rounded-2xl bg-zinc-300 transition-[height] duration-200 sm:h-[200px] lg:h-[250px] dark:bg-zinc-700">
               <img
+                draggable="false"
                 className="size-full object-cover object-top"
                 src={photo}
                 alt={`${name} profile photo`}

@@ -7,7 +7,7 @@ import PartnerDetailsLoader from '../components/loaders/PartnerDetailsLoader';
 import { useGlobalContext } from '../contexts/GlobalContext';
 
 function PartnerDetails() {
-  const { user, setUserProfile } = useGlobalContext();
+  const { user, userProfile, setUserProfile } = useGlobalContext();
   const { id } = useParams();
   const server = useAxios();
 
@@ -39,8 +39,8 @@ function PartnerDetails() {
     try {
       const res = await server.post('partner-request/send-request', {
         toId,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
+        name: userProfile?.name || user.displayName,
+        profileImage: userProfile?.profileImage || user.photoURL,
       });
       setPartner((prev) => ({ ...prev, partnerCount: prev.partnerCount + 1 }));
       setIsPartner(true);
@@ -88,6 +88,7 @@ function PartnerDetails() {
             <div className="grid gap-8 md:flex md:items-center">
               <div className="aspect-square max-h-[450px] flex-1 overflow-hidden rounded-2xl shadow-md max-md:mx-auto md:rounded-4xl">
                 <img
+                  draggable="false"
                   className="size-full object-cover object-top"
                   src={partner.profileImage}
                   alt={`${partner.name} profile image`}

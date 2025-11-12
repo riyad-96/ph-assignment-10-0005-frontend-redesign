@@ -20,7 +20,6 @@ function FunctionContext({ children }) {
     setPartnersLoading,
     setUserProfile,
     isDark,
-    setIsDark,
   } = useGlobalContext();
 
   // user auth state change listener
@@ -66,7 +65,7 @@ function FunctionContext({ children }) {
     (async () => {
       try {
         const response = await server.get('user/get');
-        setUserProfile(response.data);
+        setUserProfile(response.data.userProfile);
       } catch (err) {
         setUserProfile(null);
       }
