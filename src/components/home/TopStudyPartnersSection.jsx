@@ -31,7 +31,7 @@ function TopStudyPartnersSection() {
       <div className="my-8 flex justify-center">
         <Link
           to="/partners"
-          className="rounded-md bg-(--accent-color) px-3 py-1 text-sm"
+          className="transition-[background-color] duration-150 rounded-md bg-(--accent-color) px-3 py-1 text-sm"
         >
           View all partners
         </Link>

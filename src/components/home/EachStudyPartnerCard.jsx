@@ -23,7 +23,7 @@ function EachStudyPartnerCard({ p, studymode = false }) {
             src={profileImage}
             alt={`${name}'s profile photo`}
           />
-          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-md bg-white/70 px-2 text-sm text-nowrap backdrop-blur-sm md:px-3 md:py-0.5 lg:text-base">
+          <span className="text-black absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-md bg-white/70 px-2 text-sm text-nowrap backdrop-blur-sm md:px-3 md:py-0.5 lg:text-base">
             <span className="font-medium">{name}</span>
           </span>
         </div>
@@ -52,7 +52,7 @@ function EachStudyPartnerCard({ p, studymode = false }) {
         <div>
           <Link
             to={`/partner/${_id}`}
-            className="block w-full rounded-lg bg-(--accent-color) py-2 text-center text-sm font-medium tracking-wide"
+            className="block w-full rounded-lg bg-(--accent-color) py-2 text-center text-sm font-medium tracking-wide transition-[background-color] duration-150"
           >
             View Profile
           </Link>

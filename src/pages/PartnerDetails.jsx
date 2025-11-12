@@ -167,13 +167,13 @@ function PartnerDetails() {
 
             <div className="mx-auto mt-16 w-[260px] max-md:w-[230px]">
               {isPartner ? (
-                <span className="grid h-10 w-full place-items-center rounded-lg bg-(--accent-color)/20 font-medium duration-150 select-none md:h-12 md:text-lg">
+                <span className="grid h-10 w-full place-items-center rounded-lg bg-(--accent-color)/20 font-medium transition-[background-color] duration-150 select-none md:h-12 md:text-lg">
                   Partner request sent
                 </span>
               ) : (
                 <button
                   onClick={() => triggerParnterRequest(id)}
-                  className="grid h-10 w-full place-items-center rounded-lg bg-(--accent-color) font-medium shadow transition-shadow duration-150 md:h-12 md:text-lg pointer-fine:hover:shadow-transparent"
+                  className="grid h-10 w-full place-items-center rounded-lg bg-(--accent-color) font-medium shadow transition-[background-color,box-shadow] duration-150 md:h-12 md:text-lg pointer-fine:hover:shadow-transparent"
                 >
                   {sendingRequest ? (
                     <span className="loading loading-spinner loading-sm opacity-70"></span>
