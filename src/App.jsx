@@ -14,7 +14,7 @@ function App() {
       )}
 
       <Outlet />
-      <ToastContainer position="bottom-left" />
+      <ToastContainer position="top-right" />
     </div>
   );
 }
