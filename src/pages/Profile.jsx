@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import { toast } from 'kitzo/react';
 import useAxios from '../hooks/useAxios';
 import { updateProfile } from 'firebase/auth';
 
 function Profile() {
+  useEffect(() => {
+    document.querySelector('title').textContent = 'Profile • StudyMate';
+  }, []);
   const server = useAxios();
   const { user, userProfile, setUserProfile } = useGlobalContext();
   const email = user.email;

@@ -7,6 +7,10 @@ import { toast } from 'kitzo/react';
 import MyConnectionUpdateModal from '../components/partials/MyConnectionUpdateModal';
 
 function MyConnections() {
+    useEffect(() => {
+    document.querySelector('title').textContent = 'My connections • StudyMate';
+  }, []);
+
   const server = useAxios();
   const navigate = useNavigate();
 

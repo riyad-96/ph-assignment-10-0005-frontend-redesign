@@ -1,11 +1,16 @@
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../components/header/Logo';
+import { useEffect } from 'react';
 
 function PageNotFound() {
+  useEffect(() => {
+    document.querySelector('title').textContent = '404 • StudyMate';
+  }, []);
+
   const navigate = useNavigate();
   return (
-    <div className="screen-height text-(--main-text-clr) not-found-bg relative flex items-center bg-(--main-bg)">
+    <div className="screen-height not-found-bg relative flex items-center bg-(--main-bg) text-(--main-text-clr)">
       <button
         onClick={() => navigate(-1)}
         className="absolute top-4 flex h-[50px] w-40 items-center justify-center gap-2 rounded-r-full bg-(--accent-color) pr-4 text-lg font-medium"

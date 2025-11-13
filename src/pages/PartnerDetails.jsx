@@ -17,6 +17,15 @@ function PartnerDetails() {
   const [isPartner, setIsPartner] = useState(false);
 
   useEffect(() => {
+    if (!partner) {
+      document.querySelector('title').textContent = 'Partner • StudyMate';
+    } else {
+      document.querySelector('title').textContent =
+        `${partner.name} • StudyMate`;
+    }
+  }, [partner]);
+
+  useEffect(() => {
     (async () => {
       try {
         const response = await server.get('base-partner/all');

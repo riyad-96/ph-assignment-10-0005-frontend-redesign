@@ -75,6 +75,10 @@ const lines = [
 ];
 
 function FindPartners() {
+  useEffect(() => {
+    document.querySelector('title').textContent = 'Find partners • StudyMate';
+  }, []);
+
   const server = useAxios();
 
   // all partner states

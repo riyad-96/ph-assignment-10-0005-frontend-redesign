@@ -14,7 +14,7 @@ import { useGlobalContext } from '../../contexts/GlobalContext';
 
 function Register() {
   useEffect(() => {
-    document.querySelector('title').textContent = 'Register • Lotus Play';
+    document.querySelector('title').textContent = 'Register • StudyMate';
   }, []);
 
   const { setInteractionDisabled } = useGlobalContext();

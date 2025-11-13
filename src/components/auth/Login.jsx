@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { EyeOff, EyeOpened, GoogleIcon } from '../Svgs';
 import { Link } from 'react-router-dom';
 import { toast } from 'kitzo/react';
@@ -10,6 +10,10 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useGlobalContext } from '../../contexts/GlobalContext';
 
 function Login() {
+  useEffect(() => {
+    document.querySelector('title').textContent = 'Login • StudyMate';
+  }, []);
+
   const { setInteractionDisabled } = useGlobalContext();
 
   const [email, setEmail] = useState('');
@@ -174,7 +178,7 @@ function Login() {
                       damping: 25,
                     },
                   }}
-                  className="dark:text-zinc-400 absolute top-1/2 right-2 z-2 grid size-10 -translate-y-1/2 place-items-center rounded-full text-zinc-600"
+                  className="absolute top-1/2 right-2 z-2 grid size-10 -translate-y-1/2 place-items-center rounded-full text-zinc-600 dark:text-zinc-400"
                 >
                   {passShowing ? <EyeOff size="20" /> : <EyeOpened size="20" />}
                 </motion.button>
@@ -246,7 +250,7 @@ function Login() {
         <span className="flex items-center gap-2">
           <span>Don't have an account?</span>
           <Link
-            className="text-blue-500 dark:text-blue-400 underline"
+            className="text-blue-500 underline dark:text-blue-400"
             to="/auth/register"
             children="Register"
             replace

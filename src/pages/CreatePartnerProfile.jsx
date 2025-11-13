@@ -18,6 +18,10 @@ const availabilityTimes = [
 ];
 
 function CreatePartnerProfile() {
+  useEffect(() => {
+    document.querySelector('title').textContent = 'Partner profile • StudyMate';
+  }, []);
+
   const server = useAxios();
   const { user, userProfile, setUserProfile } = useGlobalContext();
 
