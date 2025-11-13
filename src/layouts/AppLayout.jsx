@@ -1,15 +1,20 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../components/header/Header';
 import Footer from '../components/Footer';
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 function AppLayout() {
+  const lastScroll = useRef(0);
   useLayoutEffect(() => {
     function scrollObserver() {
       requestAnimationFrame(() => {
-        document
-          .querySelector('.header')
-          .classList.toggle('scroll-trigger', window.scrollY > 10);
+        const header = document.querySelector('.header');
+
+        const currentScroll = window.scrollY;
+        const delta = currentScroll - lastScroll.current;
+        header.classList.toggle('scroll-trigger', delta > 0);
+
+        lastScroll.current = currentScroll;
       });
     }
 

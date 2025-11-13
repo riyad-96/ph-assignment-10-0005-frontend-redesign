@@ -9,8 +9,7 @@
   --main-bg: hsl(0, 0%, 97%);
   --main-text-clr: hsl(0, 0%, 12%);
 
-  --header-bg: hsl(0, 0%, 100%);
-  --header-bg-while-scroll: hsl(0, 0%, 100%, 0.8);
+  --header-bg: hsl(0, 0%, 100%, 0.8);
   --accent-color: hsl(197, 74%, 29%, 0.15);
   --dropdown-bg: hsl(0, 0%, 100%);
 
@@ -32,8 +31,7 @@
   --main-bg: hsl(0, 0%, 6%);
   --main-text-clr: hsl(0, 0%, 90%);
 
-  --header-bg: hsl(0, 0%, 10%);
-  --header-bg-while-scroll: hsl(0, 0%, 10%, 0.8);
+  --header-bg: hsl(0, 0%, 10%, 0.8);
   --accent-color: hsl(197, 74%, 70%, 0.15);
   --dropdown-bg: hsl(0, 0%, 8%);
 
@@ -93,8 +91,7 @@ img {
   height: 100dvh;
 }
 .header.scroll-trigger {
-  box-shadow: 0 2px 5px -3px hsl(0, 0%, 0%, 0.2);
-  background-color: var(--header-bg-while-scroll);
+  translate: 0 -100%;
 }
 
 .dropdown-shadow {
