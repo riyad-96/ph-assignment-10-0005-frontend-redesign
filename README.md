@@ -1,4 +1,4 @@
-## StudyMate
+## StudyMate - redesigned
 
 A fullstack web application.
 
@@ -6,7 +6,7 @@ A fullstack web application.
 
 This website helps you find a study partner who can join you during your study sessions and make your learning more effective.
 
-**Visit live site:** [StudyMate](https://studymate-assignment-10.vercel.app/)
+**Visit live site:** [StudyMate](https://studymate-redesigned.vercel.app/)
 
 ##### Key features
 
