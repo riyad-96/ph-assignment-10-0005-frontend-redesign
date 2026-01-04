@@ -1,19 +1,31 @@
-import { useEffect } from 'react';
-import Banner from '../components/home/Banner';
-import TopStudyPartnersSection from '../components/home/TopStudyPartnersSection';
-import TwoExtraSection from '../components/home/TwoExtraSection';
+import BannerSection from '../components/home/sections/BannerSection';
+import TopStudyPartnersSection from '../components/home/sections/TopStudyPartnersSection';
+import HowItWorksSection from '../components/home/sections/HowItWorksSection';
+import ReviewsSection from '../components/home/sections/ReviewsSection';
+import { Helmet } from 'react-helmet';
+import StatsSection from '../components/home/sections/StatsSection';
+import BenefitOfGroupStudySection from '../components/home/sections/BenefitOfGroupStudySection';
+import BlogPreviewSection from '../components/home/sections/BlogPreviewSection';
+import FAQSection from '../components/home/sections/FAQSection';
+import NewsletterSection from '../components/home/sections/NewsletterSection';
+import FeaturesSection from '../components/home/sections/FeaturesSection';
 
 function Home() {
-  useEffect(() => {
-    document.querySelector('title').textContent = 'Home • StudyMate';
-  }, []);
-
   return (
     <div className="px-2 md:px-3">
-      <div className="mx-auto max-w-[1440px]">
-        <Banner />
+      <Helmet title="Home • StudyMate" />
+
+      <div className="mx-auto max-w-360 space-y-30">
+        <BannerSection />
+        <StatsSection />
+        <FeaturesSection />
         <TopStudyPartnersSection />
-        <TwoExtraSection />
+        <HowItWorksSection />
+        <BenefitOfGroupStudySection />
+        <ReviewsSection />
+        <BlogPreviewSection />
+        <FAQSection />
+        <NewsletterSection />
       </div>
     </div>
   );

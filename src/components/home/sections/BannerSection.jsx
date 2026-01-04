@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 
 // other imports
 import { useState } from 'react';
-import EachSlide from './EachSlide';
+import EachSlide from '../EachSlide';
 
 const carouselData = [
   {
@@ -51,7 +51,7 @@ const carouselData = [
   },
 ];
 
-function Banner() {
+export default function BannerSection() {
   const [slides, setSlides] = useState(() => {
     return carouselData
       .map((s) => ({ random: Math.random(), obj: s }))
@@ -63,7 +63,7 @@ function Banner() {
     <div>
       <div className="space-y-2 px-4 pt-4 pb-12 text-center">
         <h1 className="text-lg font-medium sm:text-xl md:text-2xl md:font-semibold xl:text-4xl">
-          Don’t Study Alone Anymore!
+          No need to study alone anymore!
         </h1>
         <p className="opacity-80">
           Meet study buddies who make learning easier — and a lot more fun.
@@ -93,5 +93,3 @@ function Banner() {
     </div>
   );
 }
-
-export default Banner;

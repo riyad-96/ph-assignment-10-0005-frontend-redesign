@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import PartnerProfileLoader from '../components/loaders/PartnerProfileLoader';
-import { toast } from 'kitzo/react';
+import { toast } from 'kitzo';
 import { updateProfile } from 'firebase/auth';
-import useAxios from '../hooks/useAxios';
+import serverAPI from '../utils/server';
+import { Helmet } from 'react-helmet';
+import GradientButton from '../components/ui/GradientButton';
 
 const availabilityTimes = [
   'Early Morning (5-8 AM)',
@@ -18,11 +20,7 @@ const availabilityTimes = [
 ];
 
 function CreatePartnerProfile() {
-  useEffect(() => {
-    document.querySelector('title').textContent = 'Partner profile • StudyMate';
-  }, []);
-
-  const server = useAxios();
+  const server = serverAPI();
   const { user, userProfile, setUserProfile } = useGlobalContext();
 
   const [formError, setFormError] = useState({
@@ -39,7 +37,7 @@ function CreatePartnerProfile() {
       try {
         const res = await server.get('user/get');
         setUserProfile(res.data.userProfile);
-      } catch (err) {
+      } catch {
         setUserProfile(null);
       } finally {
         setPartnerProfileLoading(false);
@@ -83,8 +81,6 @@ function CreatePartnerProfile() {
       const res = await server.post('user/create', createInfo);
       await updateFirebaseInfo(createInfo.name, createInfo.profileImage);
       return res.data;
-    } catch (err) {
-      throw err;
     } finally {
       setSubmittingForm(false);
     }
@@ -95,8 +91,6 @@ function CreatePartnerProfile() {
       const res = await server.post('user/update', updateInfo);
       await updateFirebaseInfo(updateInfo.name, updateInfo.profileImage);
       return res.data;
-    } catch (err) {
-      throw err;
     } finally {
       setSubmittingForm(false);
     }
@@ -165,10 +159,12 @@ function CreatePartnerProfile() {
 
   return (
     <div className="px-2 md:px-3">
-      <div className="mx-auto max-w-[1440px]">
+      <Helmet title="Partner profile • StudyMate" />
+
+      <div className="max-w-360">
         <h1 className="mb-4 pl-1 text-lg font-medium md:text-2xl">
           {partnerProfileLoading ? (
-            <span className="block h-8 w-[200px] animate-pulse rounded-lg bg-(--loader-bg)"></span>
+            <span className="block h-8 w-50 animate-pulse rounded-lg bg-(--loader-bg)"></span>
           ) : (
             <span>
               {userProfile
@@ -196,7 +192,7 @@ function CreatePartnerProfile() {
                       Your name:
                     </label>
                     <input
-                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                       id="name"
                       type="text"
                       name="name"
@@ -220,7 +216,7 @@ function CreatePartnerProfile() {
                       Default email:
                     </label>
                     <input
-                      className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                       id="email"
                       type="email"
                       name="email"
@@ -234,7 +230,7 @@ function CreatePartnerProfile() {
                       Profile image link:
                     </label>
                     <input
-                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                       id="profileImage"
                       type="text"
                       name="profileImage"
@@ -263,7 +259,7 @@ function CreatePartnerProfile() {
                       Subject:
                     </label>
                     <input
-                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                       id="subject"
                       type="text"
                       name="subject"
@@ -290,7 +286,7 @@ function CreatePartnerProfile() {
                       id="studyMode"
                       name="studyMode"
                       defaultValue={userProfile?.studyMode || 'Online'}
-                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 appearance-none rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     >
                       <option defaultValue="Online">Online</option>
                       <option defaultValue="Offline">Offline</option>
@@ -307,7 +303,7 @@ function CreatePartnerProfile() {
                       Availability time:
                     </label>
                     <select
-                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 appearance-none rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                       id="availabilityTime"
                       name="availabilityTime"
                       defaultValue={
@@ -328,7 +324,7 @@ function CreatePartnerProfile() {
                       Location
                     </label>
                     <input
-                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                       id="location"
                       type="text"
                       name="location"
@@ -357,7 +353,7 @@ function CreatePartnerProfile() {
                     <select
                       id="experienceLevel"
                       name="experienceLevel"
-                      className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 appearance-none rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                       defaultValue={userProfile?.experienceLevel || 'Beginner'}
                     >
                       <option defaultValue="Beginner">Beginner</option>
@@ -371,7 +367,7 @@ function CreatePartnerProfile() {
                       Profile Rating:
                     </label>
                     <input
-                      className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                       id="rating"
                       type="text"
                       name="rating"
@@ -385,7 +381,7 @@ function CreatePartnerProfile() {
                       Partner Count:
                     </label>
                     <input
-                      className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
+                      className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                       id="partnerCount"
                       type="text"
                       name="partnerCount"
@@ -396,16 +392,13 @@ function CreatePartnerProfile() {
                 </div>
               </div>
 
-              <button
-                className="mt-6 grid h-8 w-[140px] place-items-center rounded-md bg-(--accent-color) px-4 py-1.5 text-sm transition-[background-color] duration-150"
+              <GradientButton
+                content={userProfile ? 'Update profile' : 'Create profile'}
                 type="submit"
-              >
-                {submittingForm ? (
-                  <span className="loading loading-spinner loading-xs"></span>
-                ) : (
-                  <>{userProfile ? 'Update profile' : 'Create profile'}</>
-                )}
-              </button>
+                isLoading={submittingForm}
+                disabled={submittingForm}
+                className="mt-8 w-40 text-sm"
+              />
             </form>
           </div>
         )}

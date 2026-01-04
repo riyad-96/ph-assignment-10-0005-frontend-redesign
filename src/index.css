@@ -2,6 +2,8 @@
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
 @plugin 'daisyui';
+@plugin './hero.js';
+@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 
 /* colors */
 :root {
@@ -54,6 +56,10 @@
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {

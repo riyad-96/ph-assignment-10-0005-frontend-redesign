@@ -1,20 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { EyeOff, EyeOpened, GoogleIcon } from '../Svgs';
 import { Link } from 'react-router-dom';
-import { toast } from 'kitzo/react';
+import { toast } from 'kitzo';
 
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, GoogleProvider } from '../../configs/firebase';
 
 import { motion, AnimatePresence } from 'motion/react';
 import { useGlobalContext } from '../../contexts/GlobalContext';
+import { Helmet } from 'react-helmet';
 
 function Login() {
-  useEffect(() => {
-    document.querySelector('title').textContent = 'Login • StudyMate';
-  }, []);
-
   const { setInteractionDisabled } = useGlobalContext();
+
+  const guest = {
+    email: 'guestaccount@gmail.com',
+    password: 'guest@Secured.00',
+  };
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -116,6 +118,8 @@ function Login() {
 
   return (
     <div>
+      <Helmet title="Login • StudyMate" />
+
       <h2 className="my-8 text-center text-2xl font-medium opacity-80">
         Welcome back
       </h2>
@@ -205,13 +209,13 @@ function Login() {
           </span>
         </div>
 
-        <div>
+        <div className="flex gap-2">
           <button
             onClick={() => {
               if (loggingIn) return;
               sendLoginRequest();
             }}
-            className="grid h-[45px] w-full place-items-center rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
+            className="grid h-11.25 flex-1 place-items-center rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
           >
             {loggingIn ? (
               <span className="loading loading-spinner loading-sm"></span>
@@ -219,25 +223,27 @@ function Login() {
               <span>Login</span>
             )}
           </button>
+
+          <button
+            onClick={() => {
+              if (loggingIn) return;
+              if (guest.email === email && guest.password === password) return;
+              setEmail(guest.email);
+              setPassword(guest.password);
+            }}
+            className="grid h-11.25 place-items-center rounded-full bg-zinc-800 px-6 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
+          >
+            <span>Guest</span>
+          </button>
         </div>
       </div>
 
-      <div className="mt-4">
-        <button
-          onClick={() => {
-            setForgetPassModalShowing(true);
-            setForgetPassEmail(email);
-          }}
-          className="mx-auto block text-sm pointer-fine:hover:text-(--accent) pointer-fine:hover:underline"
-        >
-          Forgot password?
-        </button>
-      </div>
+      <div className="my-2 text-center text-sm">or</div>
 
-      <div className="mt-4">
+      <div>
         <button
           onClick={loginWithGoogle}
-          className="flex h-[45px] w-full items-center justify-center gap-2 rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
+          className="flex h-11.25 w-full items-center justify-center gap-2 rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
         >
           <span>
             <GoogleIcon size="20" />

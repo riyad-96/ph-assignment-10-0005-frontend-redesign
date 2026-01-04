@@ -1,7 +1,8 @@
-import { toast } from 'kitzo/react';
+import { toast } from 'kitzo';
 import { motion } from 'motion/react';
 import { useState } from 'react';
-import useAxios from '../../hooks/useAxios';
+import serverAPI from '../../utils/server';
+import GradientButton from '../ui/GradientButton';
 
 const availabilityTimes = [
   'Early Morning (5-8 AM)',
@@ -16,7 +17,7 @@ const availabilityTimes = [
 ];
 
 function MyConnectionUpdateModal({ state, func }) {
-  const server = useAxios();
+  const server = serverAPI();
   const { updateInfo } = state;
   const {
     name,
@@ -69,15 +70,12 @@ function MyConnectionUpdateModal({ state, func }) {
 
   async function updateRequestPartnerProfile(info) {
     setSubmittingForm(true);
-    try {
-      const response = await server.post(
-        '/partner-request/update-partner-profile',
-        { info, _id },
-      );
-      return response.data;
-    } catch (err) {
-      throw err;
-    }
+
+    const response = await server.post(
+      '/partner-request/update-partner-profile',
+      { info, _id },
+    );
+    return response.data;
   }
 
   function handleFormSubmit(form) {
@@ -105,7 +103,7 @@ function MyConnectionUpdateModal({ state, func }) {
           setUpdateInfo(null);
           return 'Profile info updated';
         },
-        error: (err) => {
+        error: () => {
           setSubmittingForm(false);
           return 'Update failed';
         },
@@ -160,7 +158,7 @@ function MyConnectionUpdateModal({ state, func }) {
                     Name:
                   </label>
                   <input
-                    className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     id="name"
                     type="text"
                     name="name"
@@ -184,7 +182,7 @@ function MyConnectionUpdateModal({ state, func }) {
                     Default email:
                   </label>
                   <input
-                    className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     id="email"
                     type="email"
                     name="email"
@@ -198,7 +196,7 @@ function MyConnectionUpdateModal({ state, func }) {
                     Profile image link:
                   </label>
                   <input
-                    className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     id="profileImage"
                     type="text"
                     name="profileImage"
@@ -225,7 +223,7 @@ function MyConnectionUpdateModal({ state, func }) {
                     Subject:
                   </label>
                   <input
-                    className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     id="subject"
                     type="text"
                     name="subject"
@@ -252,7 +250,7 @@ function MyConnectionUpdateModal({ state, func }) {
                     id="studyMode"
                     name="studyMode"
                     defaultValue={studyMode}
-                    className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 appearance-none rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                   >
                     <option defaultValue="Online">Online</option>
                     <option defaultValue="Offline">Offline</option>
@@ -266,7 +264,7 @@ function MyConnectionUpdateModal({ state, func }) {
                     Availability time:
                   </label>
                   <select
-                    className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 appearance-none rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     id="availabilityTime"
                     name="availabilityTime"
                     defaultValue={availabilityTime}
@@ -284,7 +282,7 @@ function MyConnectionUpdateModal({ state, func }) {
                     Location
                   </label>
                   <input
-                    className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     id="location"
                     type="text"
                     name="location"
@@ -310,7 +308,7 @@ function MyConnectionUpdateModal({ state, func }) {
                   <select
                     id="experienceLevel"
                     name="experienceLevel"
-                    className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 appearance-none rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     defaultValue={experienceLevel}
                   >
                     <option defaultValue="Beginner">Beginner</option>
@@ -324,7 +322,7 @@ function MyConnectionUpdateModal({ state, func }) {
                     Profile Rating:
                   </label>
                   <input
-                    className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     id="rating"
                     type="text"
                     name="rating"
@@ -338,7 +336,7 @@ function MyConnectionUpdateModal({ state, func }) {
                     Partner Count:
                   </label>
                   <input
-                    className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent outline-none focus:ring-(--input-focus-ring-clr)"
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
                     id="partnerCount"
                     type="text"
                     name="partnerCount"
@@ -349,16 +347,13 @@ function MyConnectionUpdateModal({ state, func }) {
               </div>
             </div>
 
-            <button
-              className="mt-6 grid h-8 w-[140px] place-items-center rounded-md bg-(--accent-color) px-4 py-1.5 text-sm"
+            <GradientButton
+              content="Update"
+              isLoading={submittingForm}
+              disabed={submittingForm}
               type="submit"
-            >
-              {submittingForm ? (
-                <span className="loading loading-spinner loading-xs"></span>
-              ) : (
-                <span>Update</span>
-              )}
-            </button>
+              className="mt-6 w-35 text-sm"
+            />
           </form>
         </div>
       </motion.div>

@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useGlobalContext } from '../contexts/GlobalContext';
-import { toast } from 'kitzo/react';
-import useAxios from '../hooks/useAxios';
+import { toast } from 'kitzo';
+import serverAPI from '../utils/server';
 import { updateProfile } from 'firebase/auth';
+import { Helmet } from 'react-helmet';
+import { User, Mail, Image } from 'lucide-react';
+import GradientButton from '../components/ui/GradientButton';
 
 function Profile() {
-  useEffect(() => {
-    document.querySelector('title').textContent = 'Profile • StudyMate';
-  }, []);
-  const server = useAxios();
+  const server = serverAPI();
   const { user, userProfile, setUserProfile } = useGlobalContext();
   const email = user.email;
   const name = userProfile?.name || user.displayName;
@@ -37,19 +37,15 @@ function Profile() {
   }
 
   async function updateProfileInfo(formData) {
-    try {
-      await updateProfile(user, {
-        displayName: formData.name,
-        photoURL: formData.profileImage,
-      });
-      const response = await server.post('/user/update', {
-        name: formData.name,
-        profileImage: formData.profileImage,
-      });
-      return response.data;
-    } catch (err) {
-      throw err;
-    }
+    await updateProfile(user, {
+      displayName: formData.name,
+      photoURL: formData.profileImage,
+    });
+    const response = await server.post('/user/update', {
+      name: formData.name,
+      profileImage: formData.profileImage,
+    });
+    return response.data;
   }
 
   function handleFormSubmit(form) {
@@ -81,109 +77,147 @@ function Profile() {
 
   return (
     <div className="px-2 md:px-3">
-      <div className="mx-auto max-w-[1440px]">
-        <h1 className="mb-4 pl-1 text-lg font-medium md:text-2xl">Profile</h1>
-
-        <div>
-          <div className="pb-8">
-            <div className="mx-auto aspect-square h-[150px] overflow-hidden rounded-2xl bg-zinc-300 transition-[height] duration-200 sm:h-[200px] lg:h-[250px] dark:bg-zinc-700">
-              <img
-                draggable="false"
-                className="size-full object-cover object-top"
-                src={photo}
-                alt={`${name} profile photo`}
-              />
-            </div>
+      <div>
+        <Helmet title="Profile • StudyMate" />
+        <div className="max-w-6xl">
+          <div className="mb-6">
+            <h1 className="mb-4 text-lg font-medium md:text-2xl">
+              Profile Settings
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Manage your account information
+            </p>
           </div>
-
-          <div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleFormSubmit(e.target);
-              }}
-              className="mx-auto max-w-[400px]"
-            >
-              <div className="grid">
-                <label className="mb-1 w-fit pl-1" htmlFor="name">
-                  Your name:
-                </label>
-                <input
-                  className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
-                  id="name"
-                  type="text"
-                  name="name"
-                  placeholder="Enter your name"
-                  defaultValue={userProfile?.name || user.displayName}
-                  onChange={() => {
-                    if (formError.name.trim()) {
-                      setFormError((prev) => ({ ...prev, name: '' }));
-                    }
-                  }}
-                />
-                <span
-                  className={`overflow-hidden pl-1.5 text-sm text-red-400 transition-[height,margin] duration-150 ${formError.name ? 'mt-0.5 h-5' : 'mt-0 h-0'}`}
-                >
-                  {formError.name}
-                </span>
-              </div>
-
-              <div className="grid">
-                <label className="mb-1 w-fit pl-1" htmlFor="email">
-                  Default email:
-                </label>
-                <input
-                  className="h-[38px] w-full min-w-0 rounded-md border border-transparent bg-(--input-bg) px-3 text-(--disabled-input-clr) shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
-                  id="email"
-                  type="email"
-                  name="email"
-                  defaultValue={email}
-                  readOnly
+          <div className="grid gap-6 lg:grid-cols-3">
+            {/* Profile Image Card */}
+            <div className="rounded-xl border border-gray-200 bg-(--white) p-6 transition-colors duration-150 lg:col-span-1 dark:border-gray-700">
+              <h2 className="mb-4 text-gray-900 dark:text-white">
+                Profile Photo
+              </h2>
+              <div className="aspect-square w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 max-lg:mx-auto max-lg:max-w-75 dark:border-gray-700 dark:bg-gray-800">
+                <img
+                  draggable="false"
+                  className="size-full object-cover object-center"
+                  src={photo}
+                  alt={`${name} profile photo`}
                 />
               </div>
-
-              <div className="grid">
-                <label className="mb-1 w-fit pl-1" htmlFor="profileImage">
-                  Profile image link:
-                </label>
-                <input
-                  className="h-[38px] w-full min-w-0 rounded-md border border-(--slick-border-clr) bg-(--input-bg) px-3 shadow-xs ring-2 ring-transparent transition-colors duration-150 outline-none focus:ring-(--input-focus-ring-clr)"
-                  id="profileImage"
-                  type="text"
-                  name="profileImage"
-                  placeholder="Enter profile image url"
-                  defaultValue={
-                    userProfile?.profileImage || user.photoURL || ''
-                  }
-                  onChange={() => {
-                    if (formError.profileImage.trim()) {
-                      setFormError((prev) => ({
-                        ...prev,
-                        profileImage: '',
-                      }));
-                    }
-                  }}
-                />
-                <span
-                  className={`overflow-hidden pl-1.5 text-sm text-red-400 transition-[height,margin] duration-150 ${formError.profileImage ? 'mt-0.5 h-5' : 'mt-0 h-0'}`}
-                >
-                  {formError.profileImage}
-                </span>
-              </div>
-
-              <div>
-                <button
-                  className="mt-6 grid h-8 w-[140px] place-items-center rounded-md bg-(--accent-color) px-4 py-1.5 text-sm"
-                  type="submit"
-                >
-                  {submittingForm ? (
-                    <span className="loading loading-spinner loading-xs"></span>
-                  ) : (
-                    <span>Update</span>
+            </div>
+            {/* Profile Form Card */}
+            <div className="rounded-xl border border-gray-200 bg-(--white) p-6 transition-colors duration-150 lg:col-span-2 dark:border-gray-700">
+              <h2 className="mb-6 text-gray-900 dark:text-white">
+                Personal Information
+              </h2>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleFormSubmit(e.target);
+                }}
+                className="space-y-6"
+              >
+                {/* Name Field */}
+                <div className="space-y-2">
+                  <label
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                    htmlFor="name"
+                  >
+                    <User
+                      size={16}
+                      className="text-indigo-600 dark:text-indigo-400"
+                    />
+                    Your Name
+                  </label>
+                  <input
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="Enter your name"
+                    defaultValue={userProfile?.name || user.displayName}
+                    onChange={() => {
+                      if (formError.name.trim()) {
+                        setFormError((prev) => ({ ...prev, name: '' }));
+                      }
+                    }}
+                  />
+                  {formError.name && (
+                    <p className="text-sm text-red-500 dark:text-red-400">
+                      {formError.name}
+                    </p>
                   )}
-                </button>
-              </div>
-            </form>
+                </div>
+                {/* Email Field */}
+                <div className="space-y-2">
+                  <label
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                    htmlFor="email"
+                  >
+                    <Mail
+                      size={16}
+                      className="text-indigo-600 dark:text-indigo-400"
+                    />
+                    Email Address
+                  </label>
+                  <input
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
+                    id="email"
+                    type="email"
+                    name="email"
+                    defaultValue={email}
+                    readOnly
+                  />
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Email cannot be changed
+                  </p>
+                </div>
+                {/* Profile Image URL Field */}
+                <div className="space-y-2">
+                  <label
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                    htmlFor="profileImage"
+                  >
+                    <Image
+                      size={16}
+                      className="text-indigo-600 dark:text-indigo-400"
+                    />
+                    Profile Image URL
+                  </label>
+                  <input
+                    className="w-full min-w-0 rounded-lg border border-gray-200 bg-zinc-400/10 px-4 py-2.5 transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:border-gray-700 dark:focus:border-indigo-400"
+                    id="profileImage"
+                    type="text"
+                    name="profileImage"
+                    placeholder="Enter profile image url"
+                    defaultValue={
+                      userProfile?.profileImage || user.photoURL || ''
+                    }
+                    onChange={() => {
+                      if (formError.profileImage.trim()) {
+                        setFormError((prev) => ({
+                          ...prev,
+                          profileImage: '',
+                        }));
+                      }
+                    }}
+                  />
+                  {formError.profileImage && (
+                    <p className="text-sm text-red-500 dark:text-red-400">
+                      {formError.profileImage}
+                    </p>
+                  )}
+                </div>
+                {/* Submit Button */}
+                <div className="pt-4">
+                  <GradientButton
+                    content={'Update Profile'}
+                    type="submit"
+                    disabled={submittingForm}
+                    isLoading={submittingForm}
+                    className="w-40 text-sm"
+                  />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

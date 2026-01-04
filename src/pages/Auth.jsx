@@ -8,7 +8,7 @@ function Auth() {
       <div className="fixed top-4 left-4">
         <Logo onClick={() => navigate('/')} />
       </div>
-      <div className="w-full max-w-[400px]">
+      <div className="w-full max-w-[400px] pt-8 pb-16">
         <Outlet />
       </div>
     </div>

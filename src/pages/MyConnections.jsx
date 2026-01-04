@@ -1,17 +1,15 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
-import useAxios from '../hooks/useAxios';
+import { useEffect, useState } from 'react';
+import serverAPI from '../utils/server';
 import { Pen, Trash2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'kitzo/react';
+import { toast } from 'kitzo';
 import MyConnectionUpdateModal from '../components/partials/MyConnectionUpdateModal';
+import CustomTooltip from '../components/ui/CustomTooltip';
+import { Helmet } from 'react-helmet';
 
 function MyConnections() {
-    useEffect(() => {
-    document.querySelector('title').textContent = 'My connections • StudyMate';
-  }, []);
-
-  const server = useAxios();
+  const server = serverAPI();
   const navigate = useNavigate();
 
   const [connections, setConnections] = useState([]);
@@ -39,15 +37,11 @@ function MyConnections() {
   }, [deleteConnection]);
 
   async function sendConnectionDeleteRequest() {
-    try {
-      const response = await server.post('/partner-request/remove-connection', {
-        originalId: deleteConnection.originalId,
-        _id: deleteConnection._id,
-      });
-      return response.data;
-    } catch (err) {
-      throw err;
-    }
+    const response = await server.post('/partner-request/remove-connection', {
+      originalId: deleteConnection.originalId,
+      _id: deleteConnection._id,
+    });
+    return response.data;
   }
 
   async function triggerDelete() {
@@ -82,26 +76,27 @@ function MyConnections() {
 
   return (
     <div className="px-2 md:px-3">
-      <div className="mx-auto max-w-[1440px]">
+      <Helmet title="My Connections • StudyMate" />
+      <div className="max-w-360">
         <h1 className="mb-4 pl-1 text-lg font-medium md:text-2xl">
           My connections {connections.length > 0 && <>({connections.length})</>}
         </h1>
 
         {dataLoading ? (
-          <div className="grid min-h-[200px] place-items-center">
+          <div className="grid min-h-50 place-items-center">
             <div className="loading loading-spinner loading-sm"></div>
           </div>
         ) : (
           <>
             {connections.length < 1 ? (
-              <div className="grid min-h-[200px] place-items-center">
+              <div className="grid min-h-50 place-items-center">
                 <div className="text-center opacity-80 max-sm:text-sm">
                   Your connections will appear here
                 </div>
               </div>
             ) : (
-              <div className="w-full overflow-x-auto pb-2 max-md:w-[clamp(20rem,-1.75rem+100vw,47.9375rem)]">
-                <div className="min-w-[550px] overflow-hidden rounded-xl border border-(--table-border-clr) bg-(--white) transition-colors duration-150">
+              <div className="w-full overflow-x-auto pb-2">
+                <div className="min-w-187.5 overflow-hidden rounded-xl border border-(--table-border-clr) bg-(--white) transition-colors duration-150">
                   <table border="1" className="w-full">
                     <thead>
                       <tr className="bg-(--accent-color)/40 transition-colors duration-150">
@@ -110,6 +105,9 @@ function MyConnections() {
                         </th>
                         <th className="border-b border-(--table-border-clr) px-4 py-2 text-start font-normal">
                           Partner profile
+                        </th>
+                        <th className="border-b border-(--table-border-clr) px-4 py-2 text-start font-normal">
+                          Subject
                         </th>
                         <th className="border-b border-(--table-border-clr) px-4 py-2 text-start font-normal">
                           Study Mode
@@ -127,6 +125,7 @@ function MyConnections() {
                           studyMode,
                           email,
                           _id,
+                          subject,
                           originalId,
                         } = c;
 
@@ -149,7 +148,7 @@ function MyConnections() {
                                       navigate(`/partner/${originalId}`)
                                     }
                                   ></button>
-                                  <div className="size-[30px] overflow-hidden rounded-full md:size-[30px]">
+                                  <div className="size-7.5 overflow-hidden rounded-full md:size-7.5">
                                     <img
                                       className="size-full object-cover object-top"
                                       draggable="false"
@@ -171,6 +170,10 @@ function MyConnections() {
                             </td>
 
                             <td className="border-t border-(--table-border-clr) pl-4">
+                              <div className="text-sm">{subject}</div>
+                            </td>
+
+                            <td className="border-t border-(--table-border-clr) pl-4">
                               <span className="flex w-fit items-center gap-1 rounded-md bg-(--white) py-0.5 pr-1.5 pl-1 text-xs shadow ring-1 ring-zinc-500/10 transition-colors duration-150">
                                 <span
                                   className={`size-1.5 rounded-full ${studyMode === 'Online' ? 'bg-emerald-300' : 'bg-zinc-500/40'}`}
@@ -181,26 +184,31 @@ function MyConnections() {
 
                             <td className="border-t border-(--table-border-clr)">
                               <div className="flex justify-center gap-0.5">
-                                <button
-                                  onClick={() => {
-                                    setDeleteConnection({ ...c });
-                                  }}
-                                  className="group grid size-6 place-items-center rounded-md transition-colors duration-150 max-sm:size-7 pointer-fine:hover:bg-(--accent-color)"
-                                >
-                                  <Trash2
-                                    size="16"
-                                    className="opacity-60 group-hover:opacity-80"
-                                  />
-                                </button>
-                                <button
-                                  onClick={() => setUpdateInfo({ ...c })}
-                                  className="group grid size-6 place-items-center rounded-md transition-colors duration-150 max-sm:size-7 pointer-fine:hover:bg-(--accent-color)"
-                                >
-                                  <Pen
-                                    size="14"
-                                    className="opacity-60 group-hover:opacity-80"
-                                  />
-                                </button>
+                                <CustomTooltip content="Delete connection">
+                                  <button
+                                    onClick={() => {
+                                      setDeleteConnection({ ...c });
+                                    }}
+                                    className="group grid size-6 place-items-center rounded-md transition-colors duration-150 max-sm:size-7 pointer-fine:hover:bg-(--accent-color)"
+                                  >
+                                    <Trash2
+                                      size="16"
+                                      className="opacity-60 group-hover:opacity-80"
+                                    />
+                                  </button>
+                                </CustomTooltip>
+
+                                <CustomTooltip content="Edit connection">
+                                  <button
+                                    onClick={() => setUpdateInfo({ ...c })}
+                                    className="group grid size-6 place-items-center rounded-md transition-colors duration-150 max-sm:size-7 pointer-fine:hover:bg-(--accent-color)"
+                                  >
+                                    <Pen
+                                      size="14"
+                                      className="opacity-60 group-hover:opacity-80"
+                                    />
+                                  </button>
+                                </CustomTooltip>
                               </div>
                             </td>
                           </tr>
@@ -214,7 +222,6 @@ function MyConnections() {
           </>
         )}
       </div>
-
       <AnimatePresence>
         {deleteConnection && (
           <motion.div
@@ -242,7 +249,7 @@ function MyConnections() {
                 scale: 0.8,
               }}
               onMouseDown={(e) => e.stopPropagation()}
-              className="w-full max-w-[400px] rounded-xl bg-(--modal-bg) p-4 shadow-md"
+              className="w-full max-w-100 rounded-xl bg-(--modal-bg) p-4 shadow-md"
             >
               <h3 className="text-xl font-medium">Delete this connection?</h3>
               <p className="mt-2 leading-5 opacity-80">
@@ -283,7 +290,6 @@ function MyConnections() {
           </motion.div>
         )}
       </AnimatePresence>
-
       <AnimatePresence>
         {updateInfo && (
           <MyConnectionUpdateModal

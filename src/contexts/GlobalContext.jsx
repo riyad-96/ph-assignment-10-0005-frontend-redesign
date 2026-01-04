@@ -8,11 +8,6 @@ function GlobalContext({ children }) {
 
   const [interactionDisabled, setInteractionDisabled] = useState(false);
 
-  // base partners
-  const [partnersLoading, setPartnersLoading] = useState(true);
-  const [allPartners, setAllPartners] = useState([]);
-  const [topStudyPartners, setTopStudyPartners] = useState([]);
-
   // partner profile
   const [userProfile, setUserProfile] = useState(null);
 
@@ -35,12 +30,6 @@ function GlobalContext({ children }) {
         setUser,
         interactionDisabled,
         setInteractionDisabled,
-        partnersLoading,
-        setPartnersLoading,
-        allPartners,
-        setAllPartners,
-        topStudyPartners,
-        setTopStudyPartners,
         userProfile,
         setUserProfile,
         isDark,

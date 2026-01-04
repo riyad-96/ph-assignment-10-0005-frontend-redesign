@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { EyeOff, EyeOpened, GoogleIcon } from '../Svgs';
 import { Link } from 'react-router-dom';
-import { toast } from 'kitzo/react';
+import { toast } from 'kitzo';
 import {
   createUserWithEmailAndPassword,
   reload,
@@ -11,12 +11,9 @@ import {
 import { auth, GoogleProvider } from '../../configs/firebase';
 import { AnimatePresence, motion } from 'motion/react';
 import { useGlobalContext } from '../../contexts/GlobalContext';
+import { Helmet } from 'react-helmet';
 
 function Register() {
-  useEffect(() => {
-    document.querySelector('title').textContent = 'Register • StudyMate';
-  }, []);
-
   const { setInteractionDisabled } = useGlobalContext();
 
   const [name, setName] = useState('');
@@ -143,6 +140,8 @@ function Register() {
 
   return (
     <div>
+      <Helmet title="Register • StudyMate" />
+
       <h2 className="my-8 text-center text-2xl font-medium opacity-80">
         Create account
       </h2>
@@ -282,7 +281,7 @@ function Register() {
               if (registering) return;
               sendRegisterRequest();
             }}
-            className="grid h-[45px] w-full place-items-center rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
+            className="grid h-11.25 w-full place-items-center rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
           >
             {registering ? (
               <span className="loading loading-spinner loading-sm"></span>
@@ -298,7 +297,7 @@ function Register() {
       <div className="mt-2">
         <button
           onClick={() => signupWithGoogle()}
-          className="flex h-[45px] w-full items-center justify-center gap-2 rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
+          className="flex h-11.25 w-full items-center justify-center gap-2 rounded-full bg-zinc-800 tracking-wide text-white dark:bg-zinc-200 dark:text-black"
         >
           <span>
             <GoogleIcon size="20" />
