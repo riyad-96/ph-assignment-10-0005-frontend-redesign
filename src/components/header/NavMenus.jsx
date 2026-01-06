@@ -15,11 +15,12 @@ import {
 } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../configs/firebase';
-import { toast } from 'kitzo';
+import { toast, Tooltip, useWindowSize } from 'kitzo';
 import ThemeToggler from './ThemeToggler';
+import CustomTooltip from '../ui/CustomTooltip';
 
 export default function NavMenus() {
-  const { user, userProfile } = useGlobalContext();
+  const { user, userProfile, isDark } = useGlobalContext();
 
   const [dropDownShowing, setDropDownShowing] = useState(false);
   const [menuDropDownShowing, setMenuDropDownShowing] = useState(false);
@@ -50,6 +51,8 @@ export default function NavMenus() {
     };
   }, []);
 
+  const { screenWidth } = useWindowSize({ delay: 100 });
+
   return (
     <div className="flex flex-1 items-center justify-between">
       <div className="relative">
@@ -79,7 +82,6 @@ export default function NavMenus() {
               }`
             }
           >
-            <House size={16} className="flex-shrink-0" />
             <span>Home</span>
           </NavLink>
           <NavLink
@@ -93,29 +95,9 @@ export default function NavMenus() {
               }`
             }
           >
-            <Users size={16} className="flex-shrink-0" />
             <span>Find Partners</span>
           </NavLink>
-          {user && (
-            <>
-              <NavLink
-                onClick={() =>
-                  setTimeout(() => setMenuDropDownShowing(false), 50)
-                }
-                to="/dashboard"
-                className={({ isActive }) =>
-                  `flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150 max-lg:py-2.5 ${
-                    isActive
-                      ? 'bg-linear-to-br from-indigo-600 to-purple-600 text-white dark:from-indigo-500 dark:to-purple-500'
-                      : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 pointer-fine:hover:bg-(--accent-color)'
-                  }`
-                }
-              >
-                <LayoutDashboard size={16} className="flex-shrink-0" />
-                <span>Dashboard</span>
-              </NavLink>
-            </>
-          )}
+
           <NavLink
             onClick={() => setTimeout(() => setMenuDropDownShowing(false), 50)}
             to="/support"
@@ -127,7 +109,6 @@ export default function NavMenus() {
               }`
             }
           >
-            <CircleHelp size={16} className="flex-shrink-0" />
             <span>Support</span>
           </NavLink>
           <NavLink
@@ -141,7 +122,6 @@ export default function NavMenus() {
               }`
             }
           >
-            <Shield size={16} className="flex-shrink-0" />
             <span>Privacy</span>
           </NavLink>
           <NavLink
@@ -155,7 +135,6 @@ export default function NavMenus() {
               }`
             }
           >
-            <Info size={16} className="flex-shrink-0" />
             <span>About</span>
           </NavLink>
         </nav>
@@ -163,20 +142,46 @@ export default function NavMenus() {
 
       <div className="flex items-center gap-2">
         <ThemeToggler />
+
+        {user && (
+          <CustomTooltip
+            content={'Dashboard'}
+            tooltipOptions={{ position: 'bottom' }}
+            isHidden={screenWidth >= 640}
+          >
+            <Link
+              onClick={() =>
+                setTimeout(() => setMenuDropDownShowing(false), 50)
+              }
+              to="/dashboard"
+              className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-medium text-gray-700 transition-colors duration-150 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 pointer-fine:hover:bg-(--accent-color)`}
+            >
+              <LayoutDashboard size={16} className="shrink-0" />
+              <span className="max-sm:hidden">Dashboard</span>
+            </Link>
+          </CustomTooltip>
+        )}
+
         {user ? (
           <div className="relative flex items-center gap-2">
-            <div className="relative size-7.5 overflow-hidden rounded-full bg-zinc-300 shadow md:size-8.75 dark:bg-zinc-700">
-              <img
-                draggable="false"
-                className="size-full"
-                src={userProfile?.profileImage || user.photoURL}
-                alt={`${userProfile?.name || user.displayName} photo`}
-              />
-              <button
-                onClick={() => setDropDownShowing(true)}
-                className="profile-dropdown-open-btn absolute inset-0 z-1"
-              ></button>
-            </div>
+            <CustomTooltip
+              content="More"
+              tooltipOptions={{ position: 'bottom-end' }}
+              isHidden={dropDownShowing}
+            >
+              <div className="relative size-7.5 overflow-hidden rounded-full bg-zinc-300 shadow md:size-8.75 dark:bg-zinc-700">
+                <img
+                  draggable="false"
+                  className="size-full"
+                  src={userProfile?.profileImage || user.photoURL}
+                  alt={`${userProfile?.name || user.displayName} photo`}
+                />
+                <button
+                  onClick={() => setDropDownShowing(true)}
+                  className="profile-dropdown-open-btn absolute inset-0 z-1"
+                ></button>
+              </div>
+            </CustomTooltip>
 
             <AnimatePresence>
               {dropDownShowing && (
@@ -203,19 +208,17 @@ export default function NavMenus() {
                     className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-start text-sm font-medium text-gray-700 transition-colors duration-150 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 pointer-fine:hover:bg-(--accent-color)"
                     to="/dashboard/profile"
                   >
-                    <User size={16} className="flex-shrink-0" />
+                    <User size={16} className="shrink-0" />
                     <span>Profile</span>
                   </Link>
                   <button
                     onClick={async () => {
                       await signOut(auth);
-                      toast.success('Log out successful', {
-                        style: { color: 'black' },
-                      });
+                      toast.success('Log out successful');
                     }}
                     className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-start text-sm font-medium text-red-600 transition-colors duration-150 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950"
                   >
-                    <LogOut size={16} className="flex-shrink-0" />
+                    <LogOut size={16} className="shrink-0" />
                     <span>Logout</span>
                   </button>
                 </motion.div>

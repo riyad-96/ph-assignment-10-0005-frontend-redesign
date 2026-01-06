@@ -38,7 +38,7 @@ function Header() {
   }, [user]);
 
   return (
-    <header className="header fixed top-0 left-0 z-10 h-[50px] w-full bg-(--header-bg) px-2 shadow-md shadow-black/2 backdrop-blur-sm transition-[box-shadow,background-color,translate,scale] duration-[150ms,150ms,300ms] delay-[0ms,0ms,150ms] md:h-[65px] md:px-3">
+    <header className="header fixed top-0 left-0 z-10 h-[50px] w-full bg-(--header-bg) px-2 shadow-md shadow-black/2 backdrop-blur-sm transition-[box-shadow,background-color,translate,scale] delay-[0ms,0ms,150ms] duration-[150ms,150ms,300ms] md:h-[65px] md:px-3">
       <div className="mx-auto flex h-full max-w-[1440px] items-center gap-2 md:gap-4">
         <Logo
           hideText={hideLogoText ? true : false}
@@ -50,6 +50,7 @@ function Header() {
             }
           }}
         />
+
         <NavMenus />
       </div>
     </header>
